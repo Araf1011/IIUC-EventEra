@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
+import API_URL from '../../config';
+
 
 const AddEvent = () => {
     const navigate = useNavigate();
@@ -34,7 +36,7 @@ const AddEvent = () => {
             image
         };
 
-        fetch('https://iiuc-eventera.onrender.com/events', {
+        fetch(`${API_URL}/events`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

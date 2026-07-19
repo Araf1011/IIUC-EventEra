@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLoaderData } from 'react-router';
 import EventCard from './EventCard';
+import API_URL from '../../config';
+
 
 const categories = ['All', 'Seminar', 'Workshop', 'Cultural', 'Sports', 'Competition', 'Other'];
 
@@ -12,14 +14,20 @@ const Events = () => {
     const [activeCategory, setActiveCategory] = useState('All');
 
     useEffect(() => {
-        if (loadedEvents && loadedEvents.length > 0) {
+        if (loadedEvents && Array.isArray(loadedEvents) && loadedEvents.length > 0) {
             setEvents(loadedEvents);
             setLoading(false);
         } else {
-            fetch('https://iiuc-eventera.onrender.com/events')
+            fetch(`${API_URL}/events`)
                 .then(r => r.json())
-                .then(data => { setEvents(data); setLoading(false); })
-                .catch(() => setLoading(false));
+                .then(data => {
+                    setEvents(Array.isArray(data) ? data : []);
+                    setLoading(false);
+                })
+                .catch(() => {
+                    setEvents([]);
+                    setLoading(false);
+                });
         }
     }, [loadedEvents]);
 

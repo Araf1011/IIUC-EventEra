@@ -4,6 +4,8 @@ import EventCarousel from './EventCarousel';
 import EventCard from '../Events/EventCard';
 import iiucHero from '../../assets/IIUC.webp';
 import { CLUBS } from '../Clubs/Clubs';
+import API_URL from '../../config';
+
 
 
 const features = [
@@ -36,15 +38,24 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('https://iiuc-eventera.onrender.com/events')
+        fetch(`${API_URL}/events`)
             .then(r => r.json())
             .then(data => {
-                const now = new Date();
-                setUpcomingEvents(data.filter(e => new Date(e.date) > now));
-                setRecentEvents(data.slice(0, 3));
+                if (Array.isArray(data)) {
+                    const now = new Date();
+                    setUpcomingEvents(data.filter(e => new Date(e.date) > now));
+                    setRecentEvents(data.slice(0, 3));
+                } else {
+                    setUpcomingEvents([]);
+                    setRecentEvents([]);
+                }
                 setLoading(false);
             })
-            .catch(() => setLoading(false));
+            .catch(() => {
+                setUpcomingEvents([]);
+                setRecentEvents([]);
+                setLoading(false);
+            });
     }, []);
 
     return (

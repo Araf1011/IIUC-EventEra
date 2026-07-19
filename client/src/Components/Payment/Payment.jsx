@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router';
+import API_URL from '../../config';
+
 
 const Payment = () => {
     const { registrationId } = useParams();
@@ -15,13 +17,13 @@ const Payment = () => {
 
     useEffect(() => {
         // Fetch registration details
-        const regPromise = fetch(`https://iiuc-eventera.onrender.com/registrations/${registrationId}`)
+        const regPromise = fetch(`${API_URL}/registrations/${registrationId}`)
             .then(res => res.json())
             .then(data => setRegistration(data))
             .catch(err => console.error("Error fetching registration:", err));
 
         // Fetch payment settings
-        const settingsPromise = fetch('https://iiuc-eventera.onrender.com/settings')
+        const settingsPromise = fetch(`${API_URL}/settings`)
             .then(res => res.json())
             .then(data => setSettings(data))
             .catch(err => console.error("Error fetching settings:", err));
@@ -52,7 +54,7 @@ const Payment = () => {
             status: 'Pending'
         };
 
-        fetch('https://iiuc-eventera.onrender.com/payments', {
+        fetch(`${API_URL}/payments`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

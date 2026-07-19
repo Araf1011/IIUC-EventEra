@@ -3,6 +3,8 @@ import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, Github
 import { auth } from '../Firebase/firebase.init';
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../Providers/AuthProvider';
+import API_URL from '../../config';
+
 
 const departments = ['CSE', 'EEE', 'BBA', 'Pharmacy', 'English', 'Law'];
 
@@ -23,7 +25,7 @@ const Login = () => {
 
     // Called after social login — checks database before showing modal
     const promptProfileCompletion = (firebaseUser) => {
-        fetch(`https://iiuc-eventera.onrender.com/users/${encodeURIComponent(firebaseUser.email.toLowerCase())}`)
+        fetch(`${API_URL}/users/${encodeURIComponent(firebaseUser.email.toLowerCase())}`)
             .then(res => res.json())
             .then(dbUser => {
                 if (dbUser && dbUser.roll && dbUser.department) {
@@ -62,7 +64,7 @@ const Login = () => {
             college: 'IIUC',
         };
 
-        fetch('https://iiuc-eventera.onrender.com/users', {
+        fetch(`${API_URL}/users`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userData),

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { Html5QrcodeScanner } from 'html5-qrcode';
+import API_URL from '../../config';
+
 
 const QRScanner = () => {
     const [scanResult, setScanResult] = useState('');
@@ -24,7 +26,7 @@ const QRScanner = () => {
 
     const verifyTicket = (registrationId) => {
         setVerifying(true); setError(''); setVerificationData(null);
-        fetch('https://iiuc-eventera.onrender.com/registrations/verify', {
+        fetch(`${API_URL}/registrations/verify`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ registrationId })

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import API_URL from '../../config';
+
 
 const ManageRegistrations = () => {
     const [registrations, setRegistrations] = useState([]);
@@ -9,7 +11,7 @@ const ManageRegistrations = () => {
     const [copied, setCopied] = useState(false);
 
     useEffect(() => {
-        fetch('https://iiuc-eventera.onrender.com/registrations')
+        fetch(`${API_URL}/registrations`)
             .then(res => res.json())
             .then(data => {
                 setRegistrations(Array.isArray(data) ? data : []);
@@ -26,7 +28,7 @@ const ManageRegistrations = () => {
         if (!window.confirm(confirmMsg)) return;
 
         setActionLoading(true);
-        fetch(`http://localhost:3000/registrations/payment/${registrationId}`, {
+        fetch(`${API_URL}/registrations/payment/${registrationId}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ status })

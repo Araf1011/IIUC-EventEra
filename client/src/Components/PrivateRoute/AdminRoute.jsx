@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
 import { Navigate } from 'react-router';
+import API_URL from '../../config';
+
 
 const AdminRoute = ({ children }) => {
 
@@ -10,7 +12,7 @@ const AdminRoute = ({ children }) => {
 
     useEffect(() => {
         if (user) {
-            fetch(`https://iiuc-eventera.onrender.com/users/admin/${user.email}`)
+            fetch(`${API_URL}/users/admin/${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setIsAdmin(data.admin)

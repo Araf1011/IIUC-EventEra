@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import API_URL from '../../config';
+
 
 const PaymentSettings = () => {
     const [bkash, setBkash] = useState('');
@@ -10,7 +12,7 @@ const PaymentSettings = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        fetch('https://iiuc-eventera.onrender.com/settings')
+        fetch(`${API_URL}/settings`)
             .then(res => res.json())
             .then(data => {
                 if (data) {
@@ -31,7 +33,7 @@ const PaymentSettings = () => {
         const newBkash = e.target.bkash.value.trim();
         const newNagad = e.target.nagad.value.trim();
 
-        fetch('http://localhost:3000/settings', {
+        fetch(`${API_URL}/settings`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ bkashNumber: newBkash, nagadNumber: newNagad })

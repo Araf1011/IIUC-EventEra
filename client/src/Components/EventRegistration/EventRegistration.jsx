@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router';
 import { AuthContext } from '../../Providers/AuthProvider';
+import API_URL from '../../config';
+
 
 const EventRegistration = () => {
     const { id } = useParams();
@@ -16,13 +18,13 @@ const EventRegistration = () => {
         if (!user) return;
 
         // Fetch event details
-        const eventPromise = fetch(`https://iiuc-eventera.onrender.com/${id}`)
+        const eventPromise = fetch(`${API_URL}/events/${id}`)
             .then(res => res.json())
             .then(data => setEvent(data))
             .catch(err => console.error("Error fetching event details:", err));
 
         // Fetch user profile info (using encodeURIComponent for email)
-        const profilePromise = fetch(`https://iiuc-eventera.onrender.com/users/${encodeURIComponent(user.email)}`)
+        const profilePromise = fetch(`${API_URL}/users/${encodeURIComponent(user.email)}`)
             .then(res => res.json())
             .then(data => setProfile(data))
             .catch(err => console.error("Error fetching user profile:", err));
@@ -58,7 +60,7 @@ const EventRegistration = () => {
             department
         };
 
-        fetch('https://iiuc-eventera.onrender.com/registrations', {
+        fetch(`${API_URL}/registrations`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

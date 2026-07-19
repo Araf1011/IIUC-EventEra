@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLoaderData, useParams, Link } from 'react-router';
 import CountdownTimer from '../Home/CountdownTimer';
+import API_URL from '../../config';
+
 
 const EventDetails = () => {
     const loadedEvent = useLoaderData();
@@ -10,7 +12,7 @@ const EventDetails = () => {
 
     useEffect(() => {
         if (!event) {
-            fetch(`https://iiuc-eventera.onrender.com/events/${id}`)
+            fetch(`${API_URL}/events/${id}`)
                 .then(r => r.json())
                 .then(data => { setEvent(data); setLoading(false); })
                 .catch(() => setLoading(false));

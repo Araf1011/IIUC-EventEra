@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import API_URL from '../../config';
+
 
 const ManageEvents = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('https://iiuc-eventera.onrender.com/events')
+        fetch(`${API_URL}/events`)
             .then(res => res.json())
             .then(data => {
-                setEvents(data);
+                setEvents(Array.isArray(data) ? data : []);
                 setLoading(false);
             })
             .catch(err => {
                 console.error("Error loading events:", err);
+                setEvents([]);
                 setLoading(false);
             });
     }, []);
@@ -21,7 +24,7 @@ const ManageEvents = () => {
     const handleDeleteEvent = (id) => {
         if (!window.confirm("Are you sure you want to delete this event? This will also affect any associated registrations.")) return;
 
-        fetch(`http://localhost:3000/events/${id}`, {
+        fetch(`${API_URL}/events/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

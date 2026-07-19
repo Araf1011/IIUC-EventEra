@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
 import { Link } from 'react-router';
 import { QRCodeSVG } from 'qrcode.react';
+import API_URL from '../../config';
+
 
 const departments = ['CSE', 'EEE', 'BBA', 'Pharmacy', 'English', 'Law'];
 
@@ -21,7 +23,7 @@ const UserDashboard = () => {
     });
 
     const fetchProfile = () => {
-        return fetch(`https://iiuc-eventera.onrender.com/users/${encodeURIComponent(user.email)}`)
+        return fetch(`${API_URL}/users/${encodeURIComponent(user.email)}`)
             .then(r => r.json())
             .then(data => {
                 setProfile(data);
@@ -36,7 +38,7 @@ const UserDashboard = () => {
 
     useEffect(() => {
         if (!user) return;
-        const p2 = fetch(`http://localhost:3000/registrations/user/${user.email}`)
+        const p2 = fetch(`${API_URL}/registrations/user/${user.email}`)
             .then(r => r.json()).then(setRegistrations);
         Promise.all([fetchProfile(), p2]).finally(() => setLoading(false));
     }, [user]);
@@ -44,7 +46,7 @@ const UserDashboard = () => {
     const handleEditSubmit = (e) => {
         e.preventDefault();
         setEditLoading(true);
-        fetch(`http://localhost:3000/users/${encodeURIComponent(user.email)}`, {
+        fetch(`${API_URL}/users/${encodeURIComponent(user.email)}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(editForm),

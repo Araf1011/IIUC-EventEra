@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useLoaderData, useNavigate, Link } from 'react-router';
+import API_URL from '../../config';
+
 
 const UpdateEvent = () => {
     const event = useLoaderData();
@@ -34,7 +36,7 @@ const UpdateEvent = () => {
             image
         };
 
-        fetch(`https://iiuc-eventera.onrender.com/events/${event._id}`, {
+        fetch(`${API_URL}/events/${event._id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

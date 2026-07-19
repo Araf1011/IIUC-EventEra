@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import API_URL from '../../config';
+
 
 const AdminDashboard = () => {
     const [stats, setStats] = useState({ totalEvents: 0, totalRegistrations: 0, totalUsers: 0, pendingPayments: 0 });
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('https://iiuc-eventera.onrender.com/stats')
+        fetch(`${API_URL}/stats`)
             .then(r => r.json())
             .then(data => { setStats(data); setLoading(false); })
             .catch(() => setLoading(false));

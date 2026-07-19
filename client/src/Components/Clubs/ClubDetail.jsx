@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { CLUBS } from './Clubs';
+import API_URL from '../../config';
+
 import EventCard from '../Events/EventCard';
 
 const ClubDetail = () => {
@@ -12,24 +14,31 @@ const ClubDetail = () => {
 
     useEffect(() => {
         // Fetch all events and filter by club name tag
-        fetch('https://iiuc-eventera.onrender.com/events')
+        fetch(`${API_URL}/events`)
             .then(r => r.json())
             .then(data => {
-                // Match events whose category or name contains the club's category keyword
-                const clubEvents = data.filter(e =>
-                    club && (
-                        e.club === club.id ||
-                        e.organizer === club.name ||
-                        club.tags.some(tag =>
-                            e.category?.toLowerCase().includes(tag.toLowerCase()) ||
-                            e.name?.toLowerCase().includes(tag.toLowerCase())
+                if (Array.isArray(data)) {
+                    // Match events whose category or name contains the club's category keyword
+                    const clubEvents = data.filter(e =>
+                        club && (
+                            e.club === club.id ||
+                            e.organizer === club.name ||
+                            club.tags.some(tag =>
+                                e.category?.toLowerCase().includes(tag.toLowerCase()) ||
+                                e.name?.toLowerCase().includes(tag.toLowerCase())
+                            )
                         )
-                    )
-                );
-                setEvents(clubEvents);
+                    );
+                    setEvents(clubEvents);
+                } else {
+                    setEvents([]);
+                }
                 setLoading(false);
             })
-            .catch(() => setLoading(false));
+            .catch(() => {
+                setEvents([]);
+                setLoading(false);
+            });
     }, [club]);
 
     if (!club) {

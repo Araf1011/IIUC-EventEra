@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import API_URL from '../../config';
+
 
 const ContactMessages = () => {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('https://iiuc-eventera.onrender.com/contacts')
+        fetch(`${API_URL}/contacts`)
             .then(res => res.json())
             .then(data => {
-                setMessages(data);
+                setMessages(Array.isArray(data) ? data : []);
                 setLoading(false);
             })
             .catch(err => {
                 console.error("Error loading messages:", err);
+                setMessages([]);
                 setLoading(false);
             });
     }, []);
@@ -21,7 +24,7 @@ const ContactMessages = () => {
     const handleDeleteMessage = (id) => {
         if (!window.confirm("Are you sure you want to delete this message?")) return;
 
-        fetch(`http://localhost:3000/contacts/${id}`, {
+        fetch(`${API_URL}/contacts/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

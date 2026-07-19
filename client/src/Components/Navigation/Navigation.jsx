@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../../Providers/AuthProvider';
+import API_URL from '../../config';
+
 
 const Navigation = () => {
     const { user, logout } = useContext(AuthContext);
@@ -25,7 +27,7 @@ const Navigation = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`https://iiuc-eventera.onrender.com/users/admin/${user.email}`)
+            fetch(`${API_URL}/users/admin/${user.email}`)
                 .then(r => r.json())
                 .then(d => setIsAdmin(d.admin))
                 .catch(() => setIsAdmin(false));

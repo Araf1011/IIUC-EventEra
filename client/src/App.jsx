@@ -28,6 +28,8 @@ import ContactMessages from './Components/Admin/ContactMessages';
 // Clubs
 import Clubs from './Components/Clubs/Clubs';
 import ClubDetail from './Components/Clubs/ClubDetail';
+import API_URL from './config';
+
 
 const router = createBrowserRouter([
   {
@@ -45,12 +47,12 @@ const router = createBrowserRouter([
       {
         path: '/events',
         element: <Events />,
-        loader: () => fetch('https://iiuc-eventera.onrender.com/events').catch(() => null)
+        loader: () => fetch(`${API_URL}/events`).catch(() => null)
       },
       {
         path: '/events/:id',
         element: <EventDetails />,
-        loader: ({ params }) => fetch(`https://iiuc-eventera.onrender.com/events/${params.id}`).catch(() => null)
+        loader: ({ params }) => fetch(`${API_URL}/events/${params.id}`).catch(() => null)
       },
       {
         path: '/register-event/:id',
@@ -104,7 +106,7 @@ const router = createBrowserRouter([
       {
         path: '/admin/update-event/:id',
         element: <AdminRoute><UpdateEvent /></AdminRoute>,
-        loader: ({ params }) => fetch(`https://iiuc-eventera.onrender.com/events/${params.id}`).catch(() => null)
+        loader: ({ params }) => fetch(`${API_URL}/events/${params.id}`).catch(() => null)
       },
       {
         path: '/admin/registrations',

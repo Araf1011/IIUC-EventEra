@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../Firebase/firebase.init';
 import { Link, useNavigate } from 'react-router';
+import API_URL from '../../config';
+
 
 const departments = ['CSE', 'EEE', 'BBA', 'Pharmacy', 'English', 'Law'];
 
@@ -32,7 +34,7 @@ const Registration = () => {
             .then(async (result) => {
                 await updateProfile(result.user, { displayName: name });
                 const userData = { uid: result.user.uid, name, email, phone, department, college: 'IIUC', roll, role: 'student' };
-                fetch('https://iiuc-eventera.onrender.com/users', {
+                fetch(`${API_URL}/users`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(userData)
