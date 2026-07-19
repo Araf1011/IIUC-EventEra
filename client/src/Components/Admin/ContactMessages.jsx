@@ -6,7 +6,7 @@ const ContactMessages = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:3000/contacts')
+        fetch('https://iiuc-eventera.onrender.com/contacts')
             .then(res => res.json())
             .then(data => {
                 setMessages(data);

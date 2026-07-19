@@ -25,7 +25,7 @@ const Navigation = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:3000/users/admin/${user.email}`)
+            fetch(`https://iiuc-eventera.onrender.com/users/admin/${user.email}`)
                 .then(r => r.json())
                 .then(d => setIsAdmin(d.admin))
                 .catch(() => setIsAdmin(false));

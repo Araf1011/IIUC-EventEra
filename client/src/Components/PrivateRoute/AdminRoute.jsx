@@ -10,7 +10,7 @@ const AdminRoute = ({ children }) => {
 
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:3000/users/admin/${user.email}`)
+            fetch(`https://iiuc-eventera.onrender.com/users/admin/${user.email}`)
                 .then(res => res.json())
                 .then(data => {
                     setIsAdmin(data.admin)

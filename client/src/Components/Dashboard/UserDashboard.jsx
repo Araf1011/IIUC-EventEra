@@ -21,7 +21,7 @@ const UserDashboard = () => {
     });
 
     const fetchProfile = () => {
-        return fetch(`http://localhost:3000/users/${encodeURIComponent(user.email)}`)
+        return fetch(`https://iiuc-eventera.onrender.com/users/${encodeURIComponent(user.email)}`)
             .then(r => r.json())
             .then(data => {
                 setProfile(data);

@@ -45,12 +45,12 @@ const router = createBrowserRouter([
       {
         path: '/events',
         element: <Events />,
-        loader: () => fetch('http://localhost:3000/events').catch(() => null)
+        loader: () => fetch('https://iiuc-eventera.onrender.com/events').catch(() => null)
       },
       {
         path: '/events/:id',
         element: <EventDetails />,
-        loader: ({ params }) => fetch(`http://localhost:3000/events/${params.id}`).catch(() => null)
+        loader: ({ params }) => fetch(`https://iiuc-eventera.onrender.com/events/${params.id}`).catch(() => null)
       },
       {
         path: '/register-event/:id',
@@ -104,7 +104,7 @@ const router = createBrowserRouter([
       {
         path: '/admin/update-event/:id',
         element: <AdminRoute><UpdateEvent /></AdminRoute>,
-        loader: ({ params }) => fetch(`http://localhost:3000/events/${params.id}`).catch(() => null)
+        loader: ({ params }) => fetch(`https://iiuc-eventera.onrender.com/events/${params.id}`).catch(() => null)
       },
       {
         path: '/admin/registrations',

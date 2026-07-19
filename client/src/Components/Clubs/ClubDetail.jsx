@@ -12,7 +12,7 @@ const ClubDetail = () => {
 
     useEffect(() => {
         // Fetch all events and filter by club name tag
-        fetch('http://localhost:3000/events')
+        fetch('https://iiuc-eventera.onrender.com/events')
             .then(r => r.json())
             .then(data => {
                 // Match events whose category or name contains the club's category keyword

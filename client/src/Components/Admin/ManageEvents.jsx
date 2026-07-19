@@ -6,7 +6,7 @@ const ManageEvents = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:3000/events')
+        fetch('https://iiuc-eventera.onrender.com/events')
             .then(res => res.json())
             .then(data => {
                 setEvents(data);

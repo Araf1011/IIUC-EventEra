@@ -16,7 +16,7 @@ const Events = () => {
             setEvents(loadedEvents);
             setLoading(false);
         } else {
-            fetch('http://localhost:3000/events')
+            fetch('https://iiuc-eventera.onrender.com/events')
                 .then(r => r.json())
                 .then(data => { setEvents(data); setLoading(false); })
                 .catch(() => setLoading(false));

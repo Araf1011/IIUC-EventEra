@@ -16,13 +16,13 @@ const EventRegistration = () => {
         if (!user) return;
 
         // Fetch event details
-        const eventPromise = fetch(`http://localhost:3000/events/${id}`)
+        const eventPromise = fetch(`https://iiuc-eventera.onrender.com/${id}`)
             .then(res => res.json())
             .then(data => setEvent(data))
             .catch(err => console.error("Error fetching event details:", err));
 
         // Fetch user profile info (using encodeURIComponent for email)
-        const profilePromise = fetch(`http://localhost:3000/users/${encodeURIComponent(user.email)}`)
+        const profilePromise = fetch(`https://iiuc-eventera.onrender.com/users/${encodeURIComponent(user.email)}`)
             .then(res => res.json())
             .then(data => setProfile(data))
             .catch(err => console.error("Error fetching user profile:", err));
@@ -58,7 +58,7 @@ const EventRegistration = () => {
             department
         };
 
-        fetch('http://localhost:3000/registrations', {
+        fetch('https://iiuc-eventera.onrender.com/registrations', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -10,7 +10,7 @@ const PaymentSettings = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:3000/settings')
+        fetch('https://iiuc-eventera.onrender.com/settings')
             .then(res => res.json())
             .then(data => {
                 if (data) {

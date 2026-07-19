@@ -6,7 +6,7 @@ const AdminDashboard = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:3000/stats')
+        fetch('https://iiuc-eventera.onrender.com/stats')
             .then(r => r.json())
             .then(data => { setStats(data); setLoading(false); })
             .catch(() => setLoading(false));

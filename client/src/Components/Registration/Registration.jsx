@@ -32,7 +32,7 @@ const Registration = () => {
             .then(async (result) => {
                 await updateProfile(result.user, { displayName: name });
                 const userData = { uid: result.user.uid, name, email, phone, department, college: 'IIUC', roll, role: 'student' };
-                fetch('http://localhost:3000/users', {
+                fetch('https://iiuc-eventera.onrender.com/users', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(userData)

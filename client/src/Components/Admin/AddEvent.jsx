@@ -34,7 +34,7 @@ const AddEvent = () => {
             image
         };
 
-        fetch('http://localhost:3000/events', {
+        fetch('https://iiuc-eventera.onrender.com/events', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

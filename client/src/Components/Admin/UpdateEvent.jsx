@@ -34,7 +34,7 @@ const UpdateEvent = () => {
             image
         };
 
-        fetch(`http://localhost:3000/events/${event._id}`, {
+        fetch(`https://iiuc-eventera.onrender.com/events/${event._id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

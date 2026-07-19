@@ -23,7 +23,7 @@ const Login = () => {
 
     // Called after social login — checks database before showing modal
     const promptProfileCompletion = (firebaseUser) => {
-        fetch(`http://localhost:3000/users/${encodeURIComponent(firebaseUser.email.toLowerCase())}`)
+        fetch(`https://iiuc-eventera.onrender.com/users/${encodeURIComponent(firebaseUser.email.toLowerCase())}`)
             .then(res => res.json())
             .then(dbUser => {
                 if (dbUser && dbUser.roll && dbUser.department) {
@@ -62,7 +62,7 @@ const Login = () => {
             college: 'IIUC',
         };
 
-        fetch('http://localhost:3000/users', {
+        fetch('https://iiuc-eventera.onrender.com/users', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(userData),

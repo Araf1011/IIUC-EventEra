@@ -36,7 +36,7 @@ const Home = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:3000/events')
+        fetch('https://iiuc-eventera.onrender.com/events')
             .then(r => r.json())
             .then(data => {
                 const now = new Date();

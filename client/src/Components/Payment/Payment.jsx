@@ -15,13 +15,13 @@ const Payment = () => {
 
     useEffect(() => {
         // Fetch registration details
-        const regPromise = fetch(`http://localhost:3000/registrations/${registrationId}`)
+        const regPromise = fetch(`https://iiuc-eventera.onrender.com/registrations/${registrationId}`)
             .then(res => res.json())
             .then(data => setRegistration(data))
             .catch(err => console.error("Error fetching registration:", err));
 
         // Fetch payment settings
-        const settingsPromise = fetch('http://localhost:3000/settings')
+        const settingsPromise = fetch('https://iiuc-eventera.onrender.com/settings')
             .then(res => res.json())
             .then(data => setSettings(data))
             .catch(err => console.error("Error fetching settings:", err));
@@ -52,7 +52,7 @@ const Payment = () => {
             status: 'Pending'
         };
 
-        fetch('http://localhost:3000/payments', {
+        fetch('https://iiuc-eventera.onrender.com/payments', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

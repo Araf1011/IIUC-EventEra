@@ -10,7 +10,7 @@ const EventDetails = () => {
 
     useEffect(() => {
         if (!event) {
-            fetch(`http://localhost:3000/events/${id}`)
+            fetch(`https://iiuc-eventera.onrender.com/events/${id}`)
                 .then(r => r.json())
                 .then(data => { setEvent(data); setLoading(false); })
                 .catch(() => setLoading(false));

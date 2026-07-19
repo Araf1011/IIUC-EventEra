@@ -22,7 +22,7 @@ const Contact = () => {
         setSubmitting(true); setSuccess(''); setError('');
 
         const { name, email, subject, message } = e.target;
-        fetch('http://localhost:3000/contacts', {
+        fetch('https://iiuc-eventera.onrender.com/contacts', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: name.value, email: email.value, subject: subject.value, message: message.value }),

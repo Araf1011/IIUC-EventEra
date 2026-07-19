@@ -24,7 +24,7 @@ const QRScanner = () => {
 
     const verifyTicket = (registrationId) => {
         setVerifying(true); setError(''); setVerificationData(null);
-        fetch('http://localhost:3000/registrations/verify', {
+        fetch('https://iiuc-eventera.onrender.com/registrations/verify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ registrationId })

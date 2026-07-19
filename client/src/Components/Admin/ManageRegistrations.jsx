@@ -9,7 +9,7 @@ const ManageRegistrations = () => {
     const [copied, setCopied] = useState(false);
 
     useEffect(() => {
-        fetch('http://localhost:3000/registrations')
+        fetch('https://iiuc-eventera.onrender.com/registrations')
             .then(res => res.json())
             .then(data => {
                 setRegistrations(Array.isArray(data) ? data : []);
