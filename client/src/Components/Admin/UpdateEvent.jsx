@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLoaderData, useNavigate, Link } from 'react-router';
 import API_URL from '../../config';
+import { CLUBS } from '../Clubs/Clubs';
 
 
 const UpdateEvent = () => {
@@ -20,6 +21,7 @@ const UpdateEvent = () => {
         const time = e.target.time.value;
         const venue = e.target.venue.value;
         const category = e.target.category.value;
+        const clubId = e.target.clubId.value;
         const price = e.target.price.value;
         const seatsTotal = e.target.seatsTotal.value;
         const image = e.target.image.value;
@@ -31,6 +33,7 @@ const UpdateEvent = () => {
             time,
             venue,
             category,
+            clubId: clubId || null,
             price: parseFloat(price),
             seatsTotal: parseInt(seatsTotal),
             image
@@ -122,6 +125,18 @@ const UpdateEvent = () => {
                             <option value="Sports" className="bg-slate-900 text-white">Sports</option>
                             <option value="Competition" className="bg-slate-900 text-white">Competition</option>
                             <option value="Other" className="bg-slate-900 text-white">Other</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>🏛️ Organizing Club (Optional)</label>
+                        <select name="clubId" className="input-premium bg-transparent" defaultValue={event.clubId || ''}>
+                            <option value="" className="bg-slate-900 text-white">— General / No Specific Club —</option>
+                            {CLUBS.map(club => (
+                                <option key={club.id} value={club.id} className="bg-slate-900 text-white">
+                                    {club.shortName} — {club.name}
+                                </option>
+                            ))}
                         </select>
                     </div>
 

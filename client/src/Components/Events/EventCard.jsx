@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { CLUBS } from '../Clubs/Clubs';
 
 const EventCard = ({ event }) => {
-    const { _id, name, image, price, date, category, venue, seatsTotal, seatsBooked } = event;
+    const { _id, name, image, price, date, category, venue, seatsTotal, seatsBooked, clubId } = event;
+    const club = clubId ? CLUBS.find(c => c.id === clubId) : null;
 
     const formattedDate = new Date(date).toLocaleDateString('en-US', {
         month: 'short', day: 'numeric', year: 'numeric'
@@ -63,6 +65,22 @@ const EventCard = ({ event }) => {
                     <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--text-muted)' }}>
                         <span>👥</span><span>{remaining} of {seatsTotal} seats left</span>
                     </div>
+                    {club && (
+                        <Link
+                            to={`/clubs/${club.id}`}
+                            className="flex items-center gap-1.5 text-xs font-semibold"
+                            style={{ color: club.color, textDecoration: 'none', width: 'fit-content' }}
+                        >
+                            <span style={{
+                                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                                width: 18, height: 18, borderRadius: '5px',
+                                background: `linear-gradient(135deg, ${club.color}, ${club.color}bb)`,
+                                fontSize: '0.55rem', fontWeight: 800, color: '#1a0800',
+                                fontFamily: 'Space Grotesk, sans-serif', flexShrink: 0,
+                            }}>{club.shortName.slice(0, 1)}</span>
+                            {club.shortName}
+                        </Link>
+                    )}
                 </div>
 
                 {/* Seat progress */}

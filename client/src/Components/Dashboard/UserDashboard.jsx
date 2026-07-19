@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
 import { Link } from 'react-router';
-import { QRCodeSVG } from 'qrcode.react';
 import API_URL from '../../config';
+import TicketPDF from './TicketPDF';
 
 
 const departments = ['CSE', 'EEE', 'BBA', 'Pharmacy', 'English', 'Law'];
@@ -56,26 +56,7 @@ const UserDashboard = () => {
             .finally(() => setEditLoading(false));
     };
 
-    const handleDownloadQR = (regId) => {
-        const svgElement = document.getElementById(`qr-svg-${regId}`);
-        if (!svgElement) return;
-        const svgString = new XMLSerializer().serializeToString(svgElement);
-        const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
-        const blobURL = URL.createObjectURL(blob);
-        const img = new Image();
-        img.onload = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = 300; canvas.height = 300;
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 300, 300);
-            ctx.drawImage(img, 10, 10, 280, 280);
-            const link = document.createElement('a');
-            link.href = canvas.toDataURL('image/png');
-            link.download = `ticket-${regId}.png`;
-            document.body.appendChild(link); link.click(); document.body.removeChild(link);
-        };
-        img.src = blobURL;
-    };
+
 
     if (loading) {
         return (
@@ -309,50 +290,13 @@ const UserDashboard = () => {
                 </div>
             </div>
 
-            {/* ── QR Modal ── */}
+            {/* ── PDF Ticket Modal ── */}
             {activeTicket && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
-                    style={{ background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)' }}
-                    onClick={() => setActiveTicket(null)}>
-                    <div className="rounded-3xl p-6 max-w-sm w-full text-center relative"
-                        style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-lg)' }}
-                        onClick={e => e.stopPropagation()}>
-                        <button onClick={() => setActiveTicket(null)}
-                            className="absolute right-4 top-4 w-8 h-8 rounded-lg flex items-center justify-center text-sm transition-colors"
-                            style={{ background: 'var(--bg-secondary)', color: 'var(--text-secondary)', border: '1px solid var(--border-color)' }}>
-                            ✕
-                        </button>
-
-                        <h3 className="font-extrabold text-xl mb-1" style={{ color: 'var(--text-primary)', fontFamily: 'Space Grotesk, sans-serif' }}>
-                            Event Pass
-                        </h3>
-                        <p className="text-xs mb-5" style={{ color: 'var(--text-muted)' }}>{activeTicket.eventName}</p>
-
-                        <div className="mx-auto mb-5 p-4 rounded-2xl inline-block shadow-inner"
-                            style={{ background: '#fff', border: '2px solid var(--border-color)' }}>
-                            <QRCodeSVG id={`qr-svg-${activeTicket._id}`} value={activeTicket._id} size={180} level="M" />
-                        </div>
-
-                        <div className="rounded-xl p-4 text-left flex flex-col gap-2.5 mb-5"
-                            style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
-                            {[
-                                { l: 'Ticket Holder', v: `${activeTicket.userName} (${activeTicket.userEmail})` },
-                                { l: 'Venue', v: activeTicket.eventVenue },
-                                { l: 'Date & Time', v: `${new Date(activeTicket.eventDate).toLocaleDateString()} at ${activeTicket.eventTime || 'TBD'}` },
-                            ].map(({ l, v }) => (
-                                <div key={l}>
-                                    <p className="text-[9px] uppercase tracking-wider font-bold mb-0.5" style={{ color: 'var(--text-muted)' }}>{l}</p>
-                                    <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{v}</p>
-                                </div>
-                            ))}
-                        </div>
-
-                        <button onClick={() => handleDownloadQR(activeTicket._id)}
-                            className="btn-premium w-full py-3 rounded-xl text-sm font-semibold">
-                            💾 Download Pass
-                        </button>
-                    </div>
-                </div>
+                <TicketPDF
+                    registration={activeTicket}
+                    profile={profile}
+                    onClose={() => setActiveTicket(null)}
+                />
             )}
         </div>
     );

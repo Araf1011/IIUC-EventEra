@@ -266,7 +266,7 @@ async function run() {
                     try {
                         const event = await eventsCollection.findOne({ _id: new ObjectId(reg.eventId) });
                         if (event) eventName = event.name || event.title;
-                    } catch (e) {}
+                    } catch (e) { }
                 }
 
                 // Pull payment details from payments collection
@@ -281,7 +281,7 @@ async function run() {
                             paymentMethod: payment.method,
                         };
                     }
-                } catch (e) {}
+                } catch (e) { }
 
                 enriched.push({
                     ...reg,
@@ -296,7 +296,7 @@ async function run() {
         app.get('/registrations/user/:email', async (req, res) => {
             const email = decodeURIComponent(req.params.email).toLowerCase();
             const registrations = await registrationsCollection.find({
-                $or: [ { email }, { userEmail: email } ]
+                $or: [{ email }, { userEmail: email }]
             }).toArray();
 
             // Fetch event details for each registration
@@ -307,7 +307,7 @@ async function run() {
                     if (ObjectId.isValid(reg.eventId)) {
                         eventInfo = await eventsCollection.findOne({ _id: new ObjectId(reg.eventId) }) || {};
                     }
-                } catch (e) {}
+                } catch (e) { }
                 enriched.push({ ...reg, event: eventInfo });
             }
 
@@ -336,7 +336,7 @@ async function run() {
         app.post('/registrations', async (req, res) => {
             const reg = req.body;
             let email = reg.email || reg.userEmail;
-            
+
             if (!email) {
                 return res.status(400).send({ message: "Email is required for registration." });
             }

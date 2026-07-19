@@ -13,22 +13,13 @@ const ClubDetail = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Fetch all events and filter by club name tag
+        if (!club) { setLoading(false); return; }
+        // Fetch all events and filter by exact clubId match
         fetch(`${API_URL}/events`)
             .then(r => r.json())
             .then(data => {
                 if (Array.isArray(data)) {
-                    // Match events whose category or name contains the club's category keyword
-                    const clubEvents = data.filter(e =>
-                        club && (
-                            e.club === club.id ||
-                            e.organizer === club.name ||
-                            club.tags.some(tag =>
-                                e.category?.toLowerCase().includes(tag.toLowerCase()) ||
-                                e.name?.toLowerCase().includes(tag.toLowerCase())
-                            )
-                        )
-                    );
+                    const clubEvents = data.filter(e => e.clubId === club.id);
                     setEvents(clubEvents);
                 } else {
                     setEvents([]);

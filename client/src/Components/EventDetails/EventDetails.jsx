@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useLoaderData, useParams, Link } from 'react-router';
 import CountdownTimer from '../Home/CountdownTimer';
 import API_URL from '../../config';
+import { AuthContext } from '../../Providers/AuthProvider';
 
 
 const EventDetails = () => {
     const loadedEvent = useLoaderData();
     const { id } = useParams();
+    const { user } = useContext(AuthContext);
     const [event, setEvent] = useState(loadedEvent || null);
     const [loading, setLoading] = useState(!loadedEvent);
+    const [isRegistered, setIsRegistered] = useState(false);
+    const [userRegistration, setUserRegistration] = useState(null);
 
     useEffect(() => {
         if (!event) {
@@ -18,6 +22,24 @@ const EventDetails = () => {
                 .catch(() => setLoading(false));
         }
     }, [event, id]);
+
+    // Check if user is already registered for this event
+    useEffect(() => {
+        if (user?.email && id) {
+            fetch(`${API_URL}/registrations/user/${encodeURIComponent(user.email)}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (Array.isArray(data)) {
+                        const reg = data.find(r => r.eventId === id);
+                        if (reg) {
+                            setIsRegistered(true);
+                            setUserRegistration(reg);
+                        }
+                    }
+                })
+                .catch(() => { });
+        }
+    }, [user, id]);
 
     if (loading) {
         return (
@@ -73,6 +95,20 @@ const EventDetails = () => {
                     style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(8px)' }}>
                     ← Back
                 </Link>
+
+                {/* Registered badge on hero */}
+                {isRegistered && (
+                    <div className="absolute top-4 right-4 flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold"
+                        style={{
+                            background: 'linear-gradient(135deg, #059669, #10b981)',
+                            color: '#fff',
+                            backdropFilter: 'blur(8px)',
+                            boxShadow: '0 4px 20px rgba(5,150,105,0.5)',
+                            animation: 'pulseGlow 2.5s ease-in-out infinite',
+                        }}>
+                        ✅ You're Registered!
+                    </div>
+                )}
             </div>
 
             <div className="section-container py-10">
@@ -170,8 +206,30 @@ const EventDetails = () => {
                             </div>
 
                             {/* CTA */}
-                            <div className="mt-2">
-                                {isFull ? (
+                            <div className="mt-2 flex flex-col gap-2">
+                                {isRegistered ? (
+                                    <>
+                                        {/* Already registered state */}
+                                        <div className="w-full py-3 rounded-xl font-bold text-sm text-center"
+                                            style={{ background: 'linear-gradient(135deg,#059669,#10b981)', color: '#fff' }}>
+                                            ✅ You're Registered!
+                                        </div>
+                                        <Link to="/dashboard"
+                                            className="w-full py-2.5 rounded-xl font-semibold text-sm text-center block transition-all"
+                                            style={{ background: 'var(--accent-light)', color: 'var(--accent)', border: '1px solid var(--border-strong)' }}>
+                                            🎫 View My Ticket
+                                        </Link>
+                                        {userRegistration?.paymentStatus && (
+                                            <p className="text-center text-xs font-semibold" style={{
+                                                color: userRegistration.paymentStatus === 'Paid' ? '#059669'
+                                                    : userRegistration.paymentStatus === 'Rejected' ? '#dc2626'
+                                                        : '#d97706'
+                                            }}>
+                                                Payment: {userRegistration.paymentStatus}
+                                            </p>
+                                        )}
+                                    </>
+                                ) : isFull ? (
                                     <button disabled className="w-full py-3 rounded-xl font-semibold text-sm cursor-not-allowed"
                                         style={{ background: '#fee2e2', color: '#dc2626', border: '1px solid #fca5a5' }}>
                                         Sold Out
