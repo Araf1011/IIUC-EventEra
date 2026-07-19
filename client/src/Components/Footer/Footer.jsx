@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router';
+import { AuthContext } from '../../Providers/AuthProvider';
 
 /* ── Official SVG brand icons ── */
 const FacebookIcon = () => (
@@ -52,6 +53,7 @@ const PhoneIcon = () => (
 
 const Footer = () => {
     const year = new Date().getFullYear();
+    const { user } = useContext(AuthContext);
 
     const socialLinks = [
         { icon: <FacebookIcon />, label: 'Facebook', href: '#' },
@@ -68,9 +70,12 @@ const Footer = () => {
         { to: '/contact', label: 'Contact' },
     ];
 
+    // Hide auth links when user is already logged in
     const studentLinks = [
-        { to: '/register', label: 'Create Account' },
-        { to: '/login', label: 'Sign In' },
+        ...(!user ? [
+            { to: '/register', label: 'Create Account' },
+            { to: '/login', label: 'Sign In' },
+        ] : []),
         { to: '/dashboard', label: 'My Dashboard' },
         { to: '/events', label: 'Browse Events' },
     ];
