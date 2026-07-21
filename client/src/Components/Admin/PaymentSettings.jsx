@@ -67,8 +67,10 @@ const PaymentSettings = () => {
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }} className="page-fade">
 
             {/* Header strip */}
-            <div style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
-                <div className="section-container" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
+            <div className="relative overflow-hidden" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
+                <div className="blob blob-1" style={{ opacity: 0.18, width: 400, height: 400 }} />
+                <div className="blob blob-2" style={{ opacity: 0.12, width: 300, height: 300 }} />
+                <div className="section-container relative z-10" style={{ paddingTop: 'calc(var(--nav-h) + 1.5rem)', paddingBottom: '2rem' }}>
                     <div className="text-xs mb-2" style={{ color: 'var(--text-muted)' }}>
                         <Link to="/admin" style={{ color: 'var(--accent)', textDecoration: 'none' }}>Dashboard</Link>
                         <span style={{ margin: '0 0.4rem' }}>›</span>

@@ -52,8 +52,10 @@ const QRScanner = () => {
     return (
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }} className="page-fade">
             {/* Header */}
-            <div style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
-                <div className="section-container py-6">
+            <div className="relative overflow-hidden" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
+                <div className="blob blob-1" style={{ opacity: 0.18, width: 400, height: 400 }} />
+                <div className="blob blob-2" style={{ opacity: 0.12, width: 300, height: 300 }} />
+                <div className="section-container relative z-10" style={{ paddingTop: 'calc(var(--nav-h) + 1.5rem)', paddingBottom: '2rem' }}>
                     <div className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>
                         <Link to="/admin" style={{ color: 'var(--accent)' }}>Dashboard</Link> / QR Pass Scanner
                     </div>

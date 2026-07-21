@@ -64,21 +64,38 @@ const AddEvent = () => {
     };
 
     return (
-        <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }} className="page-fade py-12 px-4 md:px-8">
-            <div className="max-w-2xl mx-auto rounded-3xl p-6 md:p-8"
-                style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-lg)' }}>
-                
-                {/* Header */}
-                <div className="mb-6">
-                    <div className="text-xs mb-1" style={{ color: 'var(--text-muted)' }}>
-                        <Link to="/admin" style={{ color: 'var(--accent)' }}>Dashboard</Link> /{' '}
-                        <Link to="/admin/events" style={{ color: 'var(--accent)' }}>Manage Events</Link> / Add Event
+        <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }} className="page-fade">
+            
+            {/* Header strip */}
+            <div className="relative overflow-hidden" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
+                <div className="blob blob-1" style={{ opacity: 0.18, width: 400, height: 400 }} />
+                <div className="blob blob-2" style={{ opacity: 0.12, width: 300, height: 300 }} />
+                <div className="section-container relative z-10" style={{ paddingTop: 'calc(var(--nav-h) + 1.5rem)', paddingBottom: '2rem' }}>
+                    <div className="text-xs mb-2" style={{ color: 'var(--text-muted)' }}>
+                        <Link to="/admin" style={{ color: 'var(--accent)', textDecoration: 'none' }}>Dashboard</Link>
+                        <span style={{ margin: '0 0.4rem' }}>›</span>
+                        <Link to="/admin/events" style={{ color: 'var(--accent)', textDecoration: 'none' }}>Manage Events</Link>
+                        <span style={{ margin: '0 0.4rem' }}>›</span>
+                        <span>Add Event</span>
                     </div>
-                    <h1 className="text-2xl md:text-3xl font-extrabold"
-                        style={{ color: 'var(--text-primary)', fontFamily: 'Space Grotesk, sans-serif' }}>
-                        Create University Event
-                    </h1>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <h1 className="text-2xl md:text-3xl font-extrabold"
+                                style={{ color: 'var(--text-primary)', fontFamily: 'Space Grotesk, sans-serif' }}>
+                                Create University Event
+                            </h1>
+                            <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>
+                                Publish a new event, seminar, or workshop for students.
+                            </p>
+                        </div>
+                        <span className="section-badge self-start">➕ New Event</span>
+                    </div>
                 </div>
+            </div>
+
+            <div className="section-container py-10">
+                <div className="max-w-2xl mx-auto rounded-3xl p-6 md:p-8"
+                    style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-lg)' }}>
 
                 {error && (
                     <div className="mb-4 px-4 py-3 rounded-xl text-xs font-semibold"
@@ -216,7 +233,8 @@ const AddEvent = () => {
                 </form>
             </div>
         </div>
-    );
+    </div>
+);
 };
 
 export default AddEvent;

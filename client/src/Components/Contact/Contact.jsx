@@ -49,7 +49,7 @@ const Contact = () => {
             {/* Header */}
             <div className="relative overflow-hidden" style={{
                 background: 'var(--bg-secondary)',
-                padding: '4rem 1rem',
+                padding: 'calc(var(--nav-h) + 3rem) 1rem 4rem',
                 borderBottom: '1px solid var(--border-color)',
             }}>
                 <div className="blob blob-1" style={{ opacity: 0.18, width: 400, height: 400 }} />

@@ -50,7 +50,7 @@ const ClubDetail = () => {
             {/* ── Hero ── */}
             <section style={{
                 background: 'linear-gradient(135deg, #1a0d2e 0%, #0f1a38 60%, #0a1628 100%)',
-                padding: 'calc(var(--nav-h) + 3rem) 0 3.5rem',
+                padding: 'calc(var(--nav-h) + 4rem) 0 4rem',
                 position: 'relative',
                 overflow: 'hidden',
             }}>

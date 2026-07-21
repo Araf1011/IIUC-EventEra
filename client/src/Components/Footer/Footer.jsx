@@ -198,7 +198,7 @@ const Footer = () => {
                             {/* Office hours badge */}
                             <div className="footer-office-badge">
                                 <span className="footer-office-dot" />
-                                <span>Office Hours: Sun – Thu, 9 AM – 5 PM</span>
+                                <span>Office Hours: Sat – Thu, 11 AM – 3 PM</span>
                             </div>
                         </div>
                     </div>
