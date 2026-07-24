@@ -98,6 +98,8 @@
 html {
   scroll-behavior: smooth;
   transition: background-color 0.3s ease, color 0.3s ease;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 body {
@@ -106,6 +108,8 @@ body {
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {

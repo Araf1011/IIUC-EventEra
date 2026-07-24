@@ -102,7 +102,7 @@ function findAnswer(input) {
         let score = 0;
         for (const keyword of entry.keywords) {
             if (lower.includes(keyword)) {
-                score += keyword.split(' ').length; // multi-word keywords score higher
+                score += keyword.split(' ').length;
             }
         }
         if (score > bestScore) {
@@ -115,7 +115,6 @@ function findAnswer(input) {
         return bestMatch.answer;
     }
 
-    // Fallback
     return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
 }
 
@@ -128,7 +127,7 @@ const Chatbot = () => {
     const [messages, setMessages] = useState([
         {
             type: 'bot',
-            text: "Hi there! 👋 I'm the **EventEra Assistant**. Ask me anything about events, registration, payments, or campus activities!",
+            text: "Hi there! 👋 I'm the **EventEra Assistant**. How can I assist you with events, registrations, or payments today?",
             time: getTime(),
         },
     ]);
@@ -140,14 +139,29 @@ const Chatbot = () => {
 
     // Scroll to bottom on new messages
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [messages, isTyping]);
+        if (isOpen) {
+            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [messages, isTyping, isOpen]);
+
+    // Lock body scroll on mobile when chat is open
+    useEffect(() => {
+        if (isOpen && window.innerWidth <= 640) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
 
     // Focus input when chat opens
     useEffect(() => {
         if (isOpen) {
-            setTimeout(() => inputRef.current?.focus(), 300);
+            const timer = setTimeout(() => inputRef.current?.focus(), 300);
             setShowBadge(false);
+            return () => clearTimeout(timer);
         }
     }, [isOpen]);
 
@@ -155,7 +169,6 @@ const Chatbot = () => {
         const userMsg = (text || input).trim();
         if (!userMsg) return;
 
-        // Add user message
         const newMessages = [
             ...messages,
             { type: 'user', text: userMsg, time: getTime() },
@@ -164,8 +177,7 @@ const Chatbot = () => {
         setInput('');
         setIsTyping(true);
 
-        // Simulate typing delay (600-1200ms)
-        const delay = 600 + Math.random() * 600;
+        const delay = 500 + Math.random() * 500;
         setTimeout(() => {
             const answer = findAnswer(userMsg);
             setMessages(prev => [
@@ -183,63 +195,113 @@ const Chatbot = () => {
         }
     };
 
-    // Render markdown-like bold text
-    const renderText = (text) => {
-        const parts = text.split(/(\*\*[^*]+\*\*)/g);
-        return parts.map((part, i) => {
-            if (part.startsWith('**') && part.endsWith('**')) {
-                return (
-                    <strong key={i} style={{ color: '#FFBE91', fontWeight: 700 }}>
-                        {part.slice(2, -2)}
-                    </strong>
-                );
-            }
-            return <span key={i}>{part}</span>;
+    const handleClearChat = () => {
+        setMessages([
+            {
+                type: 'bot',
+                text: "Chat cleared! 🧹 How can I help you next?",
+                time: getTime(),
+            },
+        ]);
+    };
+
+    // Render markdown-like formatting (bold text & line breaks)
+    const renderFormattedText = (text) => {
+        if (!text) return null;
+        const lines = text.split('\n');
+        return lines.map((line, lineIdx) => {
+            const parts = line.split(/(\*\*[^*]+\*\*)/g);
+            const renderedLine = parts.map((part, i) => {
+                if (part.startsWith('**') && part.endsWith('**')) {
+                    return (
+                        <strong key={i} className="chatbot-bold-text">
+                            {part.slice(2, -2)}
+                        </strong>
+                    );
+                }
+                return part;
+            });
+
+            return (
+                <React.Fragment key={lineIdx}>
+                    {renderedLine}
+                    {lineIdx < lines.length - 1 && <br />}
+                </React.Fragment>
+            );
         });
     };
 
     return (
         <>
+            {/* Backdrop overlay for mobile */}
+            {isOpen && (
+                <div 
+                    className="chatbot-mobile-backdrop" 
+                    onClick={() => setIsOpen(false)}
+                    aria-hidden="true"
+                />
+            )}
+
             {/* Chat Window */}
             {isOpen && (
                 <div className="chatbot-window">
                     {/* Header */}
                     <div className="chatbot-header">
                         <div className="chatbot-header-info">
-                            <div className="chatbot-avatar">🤖</div>
+                            <div className="chatbot-avatar-container">
+                                <div className="chatbot-avatar">🤖</div>
+                                <span className="chatbot-avatar-glow" />
+                            </div>
                             <div className="chatbot-header-text">
-                                <h4>EventEra Assistant</h4>
+                                <h4>
+                                    EventEra Assistant
+                                    <span className="chatbot-sparkle">✨</span>
+                                </h4>
                                 <p>
                                     <span className="chatbot-online-dot" />
-                                    Online — Ready to help
+                                    Online • Ready to help
                                 </p>
                             </div>
                         </div>
-                        <button
-                            className="chatbot-close-btn"
-                            onClick={() => setIsOpen(false)}
-                            title="Close chat"
-                        >
-                            ✕
-                        </button>
+                        <div className="chatbot-header-actions">
+                            <button
+                                className="chatbot-action-btn"
+                                onClick={handleClearChat}
+                                title="Clear conversation"
+                                aria-label="Clear conversation"
+                            >
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                                    <path d="M3 3v5h5"/>
+                                </svg>
+                            </button>
+                            <button
+                                className="chatbot-action-btn chatbot-close-btn"
+                                onClick={() => setIsOpen(false)}
+                                title="Close chat"
+                                aria-label="Close chat"
+                            >
+                                ✕
+                            </button>
+                        </div>
                     </div>
 
-                    {/* Messages */}
+                    {/* Messages Area */}
                     <div className="chatbot-messages">
                         {messages.map((msg, i) => (
                             <div key={i} className={`chatbot-msg ${msg.type}`}>
-                                <div className="chatbot-msg-avatar" style={{ overflow: 'hidden' }}>
+                                <div className="chatbot-msg-avatar">
                                     {msg.type === 'bot' ? (
                                         '🤖'
                                     ) : user?.photoURL ? (
-                                        <img src={user.photoURL} alt="User" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        <img src={user.photoURL} alt="User" className="chatbot-user-img" />
                                     ) : (
                                         '👤'
                                     )}
                                 </div>
-                                <div>
-                                    <div className="chatbot-msg-bubble" style={{ whiteSpace: 'pre-line' }}>
-                                        {renderText(msg.text)}
+                                <div className="chatbot-msg-content">
+                                    <div className="chatbot-msg-bubble">
+                                        {renderFormattedText(msg.text)}
                                     </div>
                                     <div className="chatbot-msg-time">{msg.time}</div>
                                 </div>
@@ -249,12 +311,9 @@ const Chatbot = () => {
                         {/* Typing indicator */}
                         {isTyping && (
                             <div className="chatbot-typing">
-                                <div className="chatbot-msg-avatar" style={{
-                                    width: 28, height: 28, borderRadius: 8,
-                                    background: 'linear-gradient(135deg, #FFBE91, #FFDDB0)',
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                    fontSize: '0.75rem',
-                                }}>🤖</div>
+                                <div className="chatbot-msg-avatar chatbot-typing-avatar">
+                                    🤖
+                                </div>
                                 <div className="chatbot-typing-dots">
                                     <span /><span /><span />
                                 </div>
@@ -263,20 +322,22 @@ const Chatbot = () => {
                         <div ref={messagesEndRef} />
                     </div>
 
-                    {/* Quick Actions */}
+                    {/* Quick Actions Scroll Bar */}
                     <div className="chatbot-quick-actions">
-                        {quickActions.map(({ label, query }) => (
-                            <button
-                                key={label}
-                                className="chatbot-quick-btn"
-                                onClick={() => handleSend(query)}
-                            >
-                                {label}
-                            </button>
-                        ))}
+                        <div className="chatbot-quick-actions-scroll">
+                            {quickActions.map(({ label, query }) => (
+                                <button
+                                    key={label}
+                                    className="chatbot-quick-btn"
+                                    onClick={() => handleSend(query)}
+                                >
+                                    {label}
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
-                    {/* Input */}
+                    {/* Input Area */}
                     <div className="chatbot-input-area">
                         <input
                             ref={inputRef}
@@ -292,6 +353,7 @@ const Chatbot = () => {
                             onClick={() => handleSend()}
                             disabled={!input.trim()}
                             title="Send message"
+                            aria-label="Send message"
                         >
                             ➤
                         </button>
@@ -299,11 +361,12 @@ const Chatbot = () => {
                 </div>
             )}
 
-            {/* Floating Action Button */}
+            {/* Floating Action Button (FAB) */}
             <button
                 className={`chatbot-fab ${isOpen ? 'open' : ''}`}
                 onClick={() => setIsOpen(!isOpen)}
                 title={isOpen ? 'Close chat' : 'Chat with us'}
+                aria-label={isOpen ? 'Close chat' : 'Chat with us'}
             >
                 {isOpen ? '✕' : '💬'}
                 {!isOpen && showBadge && <span className="chatbot-badge">1</span>}
