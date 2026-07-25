@@ -5,6 +5,6 @@ const isLocalhost = Boolean(
 
 const API_URL = isLocalhost
   ? 'http://localhost:3000'
-  : 'https://iiuc-eventera.onrender.com';
+  : 'https://iiuc-eventera-server.onrender.com';
 
 export default API_URL;
