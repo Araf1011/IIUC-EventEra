@@ -18,18 +18,18 @@ const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
 const dbName = process.env.DB_NAME || "unievent";
 const client = new MongoClient(uri);
 
-async function run() {
+const db = client.db(dbName);
+const usersCollection = db.collection("users");
+const eventsCollection = db.collection("events");
+const registrationsCollection = db.collection("registrations");
+const paymentsCollection = db.collection("payments");
+const contactsCollection = db.collection("contacts");
+const settingsCollection = db.collection("settings");
+
+async function seedDatabase() {
     try {
         await client.connect();
         console.log("Connected to MongoDB successfully!");
-
-        const db = client.db(dbName);
-        const usersCollection = db.collection("users");
-        const eventsCollection = db.collection("events");
-        const registrationsCollection = db.collection("registrations");
-        const paymentsCollection = db.collection("payments");
-        const contactsCollection = db.collection("contacts");
-        const settingsCollection = db.collection("settings");
 
         // Seed default payment settings if they don't exist
         const settingsCount = await settingsCollection.countDocuments();
@@ -95,6 +95,11 @@ async function run() {
                 { $set: { image: "https://images.unsplash.com/photo-1593341606579-7f97d27b7ec3?w=800" } }
             );
         }
+    } catch (err) {
+        console.error("MongoDB connection/seeding error:", err);
+    }
+}
+seedDatabase();
 
         // ──────────────────────────────────────────────
         // USERS API
@@ -532,12 +537,6 @@ async function run() {
                 pendingPayments
             });
         });
-
-    } finally {
-        // Keep connection open for routes
-    }
-}
-run().catch(console.dir);
 
 // Root route
 app.get('/', (req, res) => {
