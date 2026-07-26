@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router';
 import API_URL from '../../config';
 import { CLUBS } from '../Clubs/Clubs';
 
-
 const AddEvent = () => {
     const navigate = useNavigate();
     const [submitting, setSubmitting] = useState(false);
@@ -65,8 +64,7 @@ const AddEvent = () => {
 
     return (
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }} className="page-fade">
-            
-            {/* Header strip */}
+
             <div className="relative overflow-hidden" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
                 <div className="blob blob-1" style={{ opacity: 0.18, width: 400, height: 400 }} />
                 <div className="blob blob-2" style={{ opacity: 0.12, width: 300, height: 300 }} />
@@ -104,14 +102,13 @@ const AddEvent = () => {
                     </div>
                 )}
 
-                {/* Form fields */}
                 <form onSubmit={handleAddEvent} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="md:col-span-2">
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Event Name</label>
-                        <input 
-                            type="text" 
-                            name="name" 
-                            placeholder="e.g. Annual Cultural Festival 2026" 
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="e.g. Annual Cultural Festival 2026"
                             className="input-premium"
                             required
                         />
@@ -143,10 +140,10 @@ const AddEvent = () => {
 
                     <div>
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Venue</label>
-                        <input 
-                            type="text" 
-                            name="venue" 
-                            placeholder="e.g. Auditorium / Room 302" 
+                        <input
+                            type="text"
+                            name="venue"
+                            placeholder="e.g. Auditorium / Room 302"
                             className="input-premium"
                             required
                         />
@@ -154,9 +151,9 @@ const AddEvent = () => {
 
                     <div>
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Date</label>
-                        <input 
-                            type="date" 
-                            name="date" 
+                        <input
+                            type="date"
+                            name="date"
                             className="input-premium"
                             required
                         />
@@ -164,10 +161,10 @@ const AddEvent = () => {
 
                     <div>
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Time</label>
-                        <input 
-                            type="text" 
-                            name="time" 
-                            placeholder="e.g. 10:00 AM - 1:00 PM" 
+                        <input
+                            type="text"
+                            name="time"
+                            placeholder="e.g. 10:00 AM - 1:00 PM"
                             className="input-premium"
                             required
                         />
@@ -175,10 +172,10 @@ const AddEvent = () => {
 
                     <div>
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Ticket Price (৳) (0 for Free)</label>
-                        <input 
-                            type="number" 
-                            name="price" 
-                            placeholder="0" 
+                        <input
+                            type="number"
+                            name="price"
+                            placeholder="0"
                             className="input-premium"
                             min="0"
                             required
@@ -187,10 +184,10 @@ const AddEvent = () => {
 
                     <div>
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Total Seats Available</label>
-                        <input 
-                            type="number" 
-                            name="seatsTotal" 
-                            placeholder="100" 
+                        <input
+                            type="number"
+                            name="seatsTotal"
+                            placeholder="100"
                             className="input-premium"
                             min="1"
                             required
@@ -199,10 +196,10 @@ const AddEvent = () => {
 
                     <div className="md:col-span-2">
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Event Banner Image URL</label>
-                        <input 
-                            type="url" 
-                            name="image" 
-                            placeholder="https://images.unsplash.com/photo-..." 
+                        <input
+                            type="url"
+                            name="image"
+                            placeholder="https://images.unsplash.com/photo-..."
                             className="input-premium"
                             required
                         />
@@ -210,18 +207,18 @@ const AddEvent = () => {
 
                     <div className="md:col-span-2">
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Event Description</label>
-                        <textarea 
-                            name="description" 
-                            rows="5" 
-                            placeholder="Provide details about the schedule, speaker, rules..." 
+                        <textarea
+                            name="description"
+                            rows="5"
+                            placeholder="Provide details about the schedule, speaker, rules..."
                             className="input-premium resize-none"
                             style={{ paddingTop: '0.65rem' }}
                             required
                         />
                     </div>
 
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         className="btn-premium w-full py-3 rounded-xl font-semibold text-sm md:col-span-2 mt-4 flex items-center justify-center gap-2 cursor-pointer"
                         disabled={submitting}
                     >

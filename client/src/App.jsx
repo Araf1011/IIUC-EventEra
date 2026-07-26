@@ -15,7 +15,6 @@ import UserDashboard from './Components/Dashboard/UserDashboard';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import AdminRoute from './Components/PrivateRoute/AdminRoute';
 
-// Admin panel components
 import AdminDashboard from './Components/Admin/AdminDashboard';
 import ManageEvents from './Components/Admin/ManageEvents';
 import AddEvent from './Components/Admin/AddEvent';
@@ -25,11 +24,9 @@ import QRScanner from './Components/Admin/QRScanner';
 import PaymentSettings from './Components/Admin/PaymentSettings';
 import ContactMessages from './Components/Admin/ContactMessages';
 
-// Clubs
 import Clubs from './Components/Clubs/Clubs';
 import ClubDetail from './Components/Clubs/ClubDetail';
 import API_URL from './config';
-
 
 const router = createBrowserRouter([
   {
@@ -90,7 +87,6 @@ const router = createBrowserRouter([
         path: '/dashboard',
         element: <PrivateRoute><UserDashboard /></PrivateRoute>
       },
-      // Admin Panel Routes
       {
         path: '/admin',
         element: <AdminRoute><AdminDashboard /></AdminRoute>

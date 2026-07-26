@@ -20,22 +20,18 @@ const TicketPDF = ({ registration, profile, onClose }) => {
     const roll = profile?.roll || reg.roll || 'N/A';
     const dept = profile?.department || reg.department || 'N/A';
 
-    // ─── Pure jsPDF PDF generator ─────────────────────────────────────
     const handleDownload = async () => {
         setGenerating(true);
         try {
-            // Get QR code image from the hidden canvas
             const canvas = qrCanvasRef.current?.querySelector('canvas');
             const qrImg = canvas ? canvas.toDataURL('image/png') : null;
 
             const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
             const W = 210;
 
-            // ── DARK HEADER ──────────────────────────────────────────
             pdf.setFillColor(15, 26, 56);
             pdf.rect(0, 0, W, 82, 'F');
 
-            // Logo box
             pdf.setFillColor(255, 190, 145);
             pdf.roundedRect(14, 14, 14, 14, 2, 2, 'F');
             pdf.setFontSize(7);
@@ -43,7 +39,6 @@ const TicketPDF = ({ registration, profile, onClose }) => {
             pdf.setFont('helvetica', 'bold');
             pdf.text('EE', 21, 23, { align: 'center' });
 
-            // Brand
             pdf.setTextColor(200, 210, 230);
             pdf.setFontSize(6.5);
             pdf.setFont('helvetica', 'bold');
@@ -56,7 +51,6 @@ const TicketPDF = ({ registration, profile, onClose }) => {
             pdf.setFont('helvetica', 'normal');
             pdf.text('International Islamic University Chittagong', 33, 31.5);
 
-            // EVENT PASS badge
             pdf.setFillColor(255, 190, 145);
             pdf.roundedRect(W - 44, 13, 30, 15, 2, 2, 'F');
             pdf.setTextColor(26, 8, 0);
@@ -66,20 +60,17 @@ const TicketPDF = ({ registration, profile, onClose }) => {
             pdf.setFontSize(10);
             pdf.text('PASS', W - 29, 26, { align: 'center' });
 
-            // Event name label
             pdf.setTextColor(255, 190, 145);
             pdf.setFontSize(6);
             pdf.setFont('helvetica', 'bold');
             pdf.text('EVENT NAME', 14, 48);
 
-            // Event name value
             pdf.setTextColor(255, 252, 225);
             pdf.setFontSize(16);
             pdf.setFont('helvetica', 'bold');
             const nameLines = pdf.splitTextToSize(reg.eventName || 'Unknown Event', W - 60);
             pdf.text(nameLines, 14, 57);
 
-            // Category badge text
             if (reg.category) {
                 const catY = nameLines.length > 1 ? 72 : 65;
                 pdf.setFontSize(6);
@@ -87,7 +78,6 @@ const TicketPDF = ({ registration, profile, onClose }) => {
                 pdf.text(reg.category.toUpperCase(), 14, catY);
             }
 
-            // ── TEAR LINE 1 ──────────────────────────────────────────
             const t1 = 85;
             pdf.setFillColor(229, 231, 235);
             pdf.circle(0, t1, 3.5, 'F');
@@ -98,7 +88,6 @@ const TicketPDF = ({ registration, profile, onClose }) => {
             pdf.line(5, t1, W - 5, t1);
             pdf.setLineDashPattern([], 0);
 
-            // ── DETAILS GRID ─────────────────────────────────────────
             const gridTop = 90;
             const colW = (W - 20) / 3;
             const gridItems = [
@@ -123,7 +112,6 @@ const TicketPDF = ({ registration, profile, onClose }) => {
                 pdf.text(vLines[0], x + 4, gridTop + 13.5);
             });
 
-            // ── HOLDER DETAILS ───────────────────────────────────────
             let y = 117;
             pdf.setDrawColor(229, 231, 235);
             pdf.setLineWidth(0.3);
@@ -154,7 +142,6 @@ const TicketPDF = ({ registration, profile, onClose }) => {
                 pdf.text(pdf.splitTextToSize(f.value, leftW / 2)[0], hx, hy + 5.5);
             });
 
-            // ── PAYMENT TABLE ─────────────────────────────────────────
             y += 36;
             pdf.setDrawColor(229, 231, 235);
             pdf.line(10, y, leftW + 10, y);
@@ -192,7 +179,6 @@ const TicketPDF = ({ registration, profile, onClose }) => {
             pdf.setFontSize(12);
             pdf.text(isFree ? 'FREE' : `BDT ${reg.price}`, leftW + 10, y, { align: 'right' });
 
-            // ── QR CODE ──────────────────────────────────────────────
             if (qrImg) {
                 const qx = W - 10 - 50;
                 const qy = 118;
@@ -210,7 +196,6 @@ const TicketPDF = ({ registration, profile, onClose }) => {
                 pdf.text(`#${ticketNo}`, qx + 23.5, qy + 58, { align: 'center' });
             }
 
-            // ── TEAR LINE 2 ──────────────────────────────────────────
             y += 22;
             pdf.setFillColor(229, 231, 235);
             pdf.circle(0, y, 3.5, 'F');
@@ -221,7 +206,6 @@ const TicketPDF = ({ registration, profile, onClose }) => {
             pdf.line(5, y, W - 5, y);
             pdf.setLineDashPattern([], 0);
 
-            // ── FOOTER ────────────────────────────────────────────────
             y += 4;
             pdf.setFillColor(249, 250, 251);
             pdf.rect(0, y, W, 22, 'F');
@@ -248,7 +232,6 @@ const TicketPDF = ({ registration, profile, onClose }) => {
         }
     };
 
-    // ─── Visual Preview (unchanged) ───────────────────────────────────
     return (
         <div
             style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(10px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', overflowY: 'auto' }}
@@ -256,12 +239,10 @@ const TicketPDF = ({ registration, profile, onClose }) => {
         >
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.25rem', width: '100%', maxWidth: 700 }} onClick={e => e.stopPropagation()}>
 
-                {/* Hidden QR canvas used for PDF extraction */}
                 <div ref={qrCanvasRef} style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', top: -9999 }}>
                     <QRCodeCanvas value={reg._id} size={256} level="M" bgColor="#ffffff" fgColor="#0f1a38" />
                 </div>
 
-                {/* Buttons */}
                 <div style={{ display: 'flex', gap: '0.75rem', width: '100%', justifyContent: 'flex-end' }}>
                     <button onClick={onClose} style={{ padding: '0.55rem 1.25rem', borderRadius: '0.65rem', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'Space Grotesk, sans-serif' }}>✕ Close</button>
                     <button onClick={handleDownload} disabled={generating} style={{ padding: '0.55rem 1.5rem', borderRadius: '0.65rem', background: 'linear-gradient(135deg, #FFBE91, #FFDDB0)', border: 'none', color: '#1a0800', fontSize: '0.82rem', fontWeight: 700, cursor: generating ? 'not-allowed' : 'pointer', fontFamily: 'Space Grotesk, sans-serif', display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: generating ? 0.7 : 1, boxShadow: '0 4px 20px rgba(255,190,145,0.35)' }}>
@@ -269,10 +250,8 @@ const TicketPDF = ({ registration, profile, onClose }) => {
                     </button>
                 </div>
 
-                {/* Visual ticket preview */}
                 <div style={{ width: '100%', background: '#ffffff', fontFamily: "'Segoe UI', Arial, sans-serif", color: '#111827', overflow: 'hidden', borderRadius: '12px', boxShadow: '0 24px 60px rgba(0,0,0,0.4)' }}>
 
-                    {/* Header */}
                     <div style={{ background: 'linear-gradient(135deg, #0f1a38 0%, #1a0d2e 60%, #0a1628 100%)', padding: '2.5rem 2.5rem 2rem', position: 'relative', overflow: 'hidden' }}>
                         <div style={{ position: 'absolute', top: -60, right: -60, width: 240, height: 240, borderRadius: '50%', background: '#FFBE91', filter: 'blur(70px)', opacity: 0.15 }} />
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
@@ -296,16 +275,14 @@ const TicketPDF = ({ registration, profile, onClose }) => {
                         </div>
                     </div>
 
-                    {/* Tear line */}
                     <div style={{ display: 'flex', alignItems: 'center', background: '#f9fafb' }}>
                         <div style={{ width: 24, height: 24, borderRadius: '50%', background: '#e5e7eb', flexShrink: 0, marginLeft: '-12px' }} />
                         <div style={{ flex: 1, borderTop: '2px dashed #d1d5db', margin: '0 0.5rem' }} />
                         <div style={{ width: 24, height: 24, borderRadius: '50%', background: '#e5e7eb', flexShrink: 0, marginRight: '-12px' }} />
                     </div>
 
-                    {/* Body */}
                     <div style={{ background: '#ffffff', padding: '2rem 2.5rem' }}>
-                        {/* Details grid */}
+
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', borderRadius: '12px', overflow: 'hidden', border: '1px solid #e5e7eb', marginBottom: '1.75rem' }}>
                             {[{ label: '📅 Date', value: eventDate }, { label: '⏰ Time', value: reg.eventTime || 'TBA' }, { label: '📍 Venue', value: reg.eventVenue || 'TBA' }].map((item, i) => (
                                 <div key={item.label} style={{ padding: '1rem 1.25rem', background: i % 2 === 1 ? '#f9fafb' : '#fff', borderRight: i < 2 ? '1px solid #e5e7eb' : 'none' }}>
@@ -315,7 +292,6 @@ const TicketPDF = ({ registration, profile, onClose }) => {
                             ))}
                         </div>
 
-                        {/* Holder + QR */}
                         <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
                             <div style={{ flex: 1 }}>
                                 <div style={{ fontSize: '0.6rem', fontWeight: 800, color: '#9ca3af', textTransform: 'uppercase', marginBottom: '1rem', paddingBottom: '0.4rem', borderBottom: '1px solid #e5e7eb' }}>Ticket Holder Details</div>
@@ -346,14 +322,12 @@ const TicketPDF = ({ registration, profile, onClose }) => {
                         </div>
                     </div>
 
-                    {/* Tear line 2 */}
                     <div style={{ display: 'flex', alignItems: 'center', background: '#f9fafb' }}>
                         <div style={{ width: 24, height: 24, borderRadius: '50%', background: '#e5e7eb', flexShrink: 0, marginLeft: '-12px' }} />
                         <div style={{ flex: 1, borderTop: '2px dashed #d1d5db', margin: '0 0.5rem' }} />
                         <div style={{ width: 24, height: 24, borderRadius: '50%', background: '#e5e7eb', flexShrink: 0, marginRight: '-12px' }} />
                     </div>
 
-                    {/* Footer */}
                     <div style={{ background: '#f9fafb', borderTop: '1px solid #e5e7eb', padding: '1rem 2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
                         <div style={{ fontSize: '0.62rem', color: '#9ca3af' }}><span style={{ fontWeight: 700, color: '#6b7280' }}>Registration ID: </span><span style={{ fontFamily: 'monospace' }}>{reg._id}</span></div>
                         <div style={{ fontSize: '0.62rem', color: '#9ca3af' }}><span style={{ fontWeight: 700, color: '#6b7280' }}>Issued: </span>{issueDate}</div>

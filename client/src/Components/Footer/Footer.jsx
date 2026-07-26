@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router';
 import { AuthContext } from '../../Providers/AuthProvider';
 
-/* ── Official SVG brand icons ── */
 const FacebookIcon = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -70,7 +69,6 @@ const Footer = () => {
         { to: '/contact', label: 'Contact' },
     ];
 
-    // Hide auth links when user is already logged in
     const studentLinks = [
         ...(!user ? [
             { to: '/register', label: 'Create Account' },
@@ -82,7 +80,7 @@ const Footer = () => {
 
     return (
         <footer className="footer-root">
-            {/* Wave divider */}
+
             <div className="footer-wave">
                 <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0,30 C360,60 1080,0 1440,30 L1440,0 L0,0 Z" fill="var(--bg-primary)" />
@@ -92,10 +90,8 @@ const Footer = () => {
             <div className="footer-body">
                 <div className="section-container">
 
-                    {/* ── Top grid ── */}
                     <div className="footer-grid">
 
-                        {/* Brand column */}
                         <div className="footer-brand-col">
                             <Link to="/" className="footer-logo">
                                 <div style={{
@@ -117,7 +113,6 @@ const Footer = () => {
                                 Your university's official event management portal — where campus life comes alive.
                             </p>
 
-                            {/* Newsletter mini */}
                             <div className="footer-newsletter">
                                 <p className="footer-newsletter-label">Stay updated</p>
                                 <div className="footer-newsletter-row">
@@ -133,7 +128,6 @@ const Footer = () => {
                                 </div>
                             </div>
 
-                            {/* Social icons */}
                             <div className="footer-social-row">
                                 {socialLinks.map(({ icon, label, href }) => (
                                     <a key={label} href={href} aria-label={label} className="footer-social-icon">
@@ -143,7 +137,6 @@ const Footer = () => {
                             </div>
                         </div>
 
-                        {/* Quick Links */}
                         <div className="footer-links-col">
                             <h6 className="footer-col-heading">Quick Links</h6>
                             <ul className="footer-link-list">
@@ -158,7 +151,6 @@ const Footer = () => {
                             </ul>
                         </div>
 
-                        {/* For Students */}
                         <div className="footer-links-col">
                             <h6 className="footer-col-heading">For Students</h6>
                             <ul className="footer-link-list">
@@ -173,7 +165,6 @@ const Footer = () => {
                             </ul>
                         </div>
 
-                        {/* Contact */}
                         <div className="footer-links-col">
                             <h6 className="footer-col-heading">Get In Touch</h6>
                             <ul className="footer-contact-list">
@@ -195,7 +186,6 @@ const Footer = () => {
                                 </li>
                             </ul>
 
-                            {/* Office hours badge */}
                             <div className="footer-office-badge">
                                 <span className="footer-office-dot" />
                                 <span>Office Hours: Sat – Thu, 11 AM – 3 PM</span>
@@ -203,7 +193,6 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    {/* ── Bottom bar ── */}
                     <div className="footer-bottom-divider" />
                     <div className="footer-bottom">
                         <span>© {year} <strong>IIUC EventEra</strong> · IIUC · All rights reserved.</span>

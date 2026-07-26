@@ -6,8 +6,6 @@ import iiucHero from '../../assets/IIUC.webp';
 import { CLUBS } from '../Clubs/Clubs';
 import API_URL from '../../config';
 
-
-
 const features = [
     {
         icon: '🎟️',
@@ -61,7 +59,6 @@ const Home = () => {
     return (
         <div style={{ background: 'var(--bg-primary)' }}>
 
-            {/* ── Hero ── */}
             <section
                 className="relative"
                 style={{
@@ -74,12 +71,11 @@ const Home = () => {
                     backgroundRepeat: 'no-repeat',
                 }}
             >
-                {/* Dark gradient overlay for text readability */}
+
                 <div className="absolute inset-0" style={{
                     background: 'linear-gradient(135deg, rgba(10,4,30,0.78) 0%, rgba(7,25,60,0.72) 50%, rgba(4,18,42,0.80) 100%)',
                 }} />
 
-                {/* Subtle color blobs on top of the photo */}
                 <div className="blob blob-1" style={{ opacity: 0.15 }} />
                 <div className="blob blob-2" style={{ opacity: 0.12 }} />
 
@@ -114,7 +110,6 @@ const Home = () => {
                             </Link>
                         </div>
 
-                        {/* Stats row */}
                         <div className="flex flex-wrap justify-center gap-8 mt-14 pt-8"
                             style={{ borderTop: '1px solid rgba(255,190,145,0.2)' }}>
                             {[['50+', 'Events Hosted'], ['5,000+', 'Registrations'], ['10+', 'Departments']].map(([n, l]) => (
@@ -130,8 +125,6 @@ const Home = () => {
                 </div>
             </section>
 
-
-            {/* ── Upcoming Carousel ── */}
             <section className="py-16 md:py-20" style={{ background: 'var(--bg-secondary)' }}>
                 <div className="section-container">
                     <div className="flex items-end justify-between mb-8">
@@ -160,7 +153,6 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* ── Features ── */}
             <section className="py-16 md:py-20" style={{ background: 'var(--bg-primary)' }}>
                 <div className="section-container">
                     <div className="text-center mb-12">
@@ -194,7 +186,6 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* ── Recent Events ── */}
             <section className="py-16 md:py-20" style={{ background: 'var(--bg-secondary)' }}>
                 <div className="section-container">
                     <div className="text-center mb-10">
@@ -236,7 +227,6 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* ── Our Clubs Teaser ── */}
             <section className="py-16 md:py-20" style={{ background: 'var(--bg-secondary)' }}>
                 <div className="section-container">
                     <div className="text-center mb-10">
@@ -306,8 +296,6 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-
-            {/* ── CTA Banner ── */}
 
             <section className="py-16 md:py-20" style={{ background: 'var(--bg-primary)' }}>
                 <div className="section-container">

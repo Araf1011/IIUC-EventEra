@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import API_URL from '../../config';
 
-
 const ManageEvents = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -56,8 +55,7 @@ const ManageEvents = () => {
 
     return (
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }} className="page-fade">
-            
-            {/* Header strip */}
+
             <div className="relative overflow-hidden" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
                 <div className="blob blob-1" style={{ opacity: 0.18, width: 400, height: 400 }} />
                 <div className="blob blob-2" style={{ opacity: 0.12, width: 300, height: 300 }} />
@@ -85,7 +83,7 @@ const ManageEvents = () => {
             </div>
 
             <div className="section-container py-10">
-                {/* Events Table Container */}
+
                 {events.length === 0 ? (
                     <div className="text-center py-20 rounded-3xl"
                         style={{ border: '2px dashed var(--border-color)', background: 'var(--bg-card)' }}>
@@ -142,15 +140,15 @@ const ManageEvents = () => {
                                             </td>
                                             <td className="text-right">
                                                 <div className="flex gap-2 justify-end">
-                                                    <Link 
-                                                        to={`/admin/update-event/${event._id}`} 
+                                                    <Link
+                                                        to={`/admin/update-event/${event._id}`}
                                                         className="px-2.5 py-1 text-xs font-semibold rounded-lg transition-colors cursor-pointer"
                                                         style={{ background: 'var(--accent-light)', color: 'var(--accent)' }}
                                                     >
                                                         Edit
                                                     </Link>
-                                                    <button 
-                                                        onClick={() => handleDeleteEvent(event._id)} 
+                                                    <button
+                                                        onClick={() => handleDeleteEvent(event._id)}
                                                         className="px-2.5 py-1 text-xs font-semibold rounded-lg text-white cursor-pointer"
                                                         style={{ background: 'var(--error-color)' }}
                                                     >

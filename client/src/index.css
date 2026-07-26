@@ -4,60 +4,48 @@
   themes: light --default, dark;
 }
 
-/* ─────────────────────────────────────────
-   CSS CUSTOM PROPERTIES — Light / Dark
-───────────────────────────────────────── */
 :root {
-  /* ── Warm Palette Core ── */
+
   --warm-peach:   #FFBE91;
   --warm-sand:    #FFDDB0;
   --warm-cream:   #FFFCE1;
   --cool-sky:     #CFEBFF;
 
-  /* ── Backgrounds (dark warm) ── */
   --bg-primary:   #0f1624;
   --bg-secondary: #16202e;
   --bg-card:      #1c2a3a;
   --bg-card-hover:#22334a;
 
-  /* ── Borders ── */
   --border-color: rgba(255,190,145,0.12);
   --border-strong: rgba(255,190,145,0.25);
 
-  /* ── Text ── */
   --text-primary:   #FFFCE1;
   --text-secondary: #c9b89e;
   --text-muted:     #7a6a5a;
 
-  /* ── Accents ── */
   --accent:         #FFBE91;
   --accent-light:   rgba(255,190,145,0.12);
   --accent-2:       #CFEBFF;
   --accent-2-light: rgba(207,235,255,0.12);
 
-  /* ── Status ── */
   --success-color: #4ade80;
   --warning-color: #FFDDB0;
   --error-color:   #f87171;
 
-  /* ── Glass / Nav ── */
   --glass-bg:     rgba(15,22,36,0.75);
   --glass-border: rgba(255,190,145,0.15);
   --nav-bg:       rgba(12,18,30,0.88);
 
-  /* ── Shadows ── */
   --shadow-sm:   0 1px 3px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.2);
   --shadow-md:   0 4px 20px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.25);
   --shadow-lg:   0 12px 48px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.3);
   --shadow-glow: 0 0 28px rgba(255,190,145,0.20);
 
-  /* ── Gradients ── */
   --gradient-hero:    linear-gradient(135deg, #1a0d2e 0%, #0f1e3a 50%, #0a1628 100%);
   --gradient-accent:  linear-gradient(135deg, #FFBE91, #ff9d5c);
   --gradient-accent2: linear-gradient(135deg, #CFEBFF, #7ec8e3);
   --gradient-footer:  linear-gradient(135deg, #0d1422 0%, #111c2e 50%, #0a1220 100%);
 
-  /* ── Footer specific (kept for footer component) ── */
   --footer-text:   #e8d5c4;
   --footer-muted:  #a89080;
   --footer-border: rgba(255,190,145,0.15);
@@ -66,7 +54,7 @@
 }
 
 [data-theme="dark"] {
-  /* Deeper dark variant */
+
   --bg-primary:   #080d17;
   --bg-secondary: #0d1422;
   --bg-card:      #131e2e;
@@ -90,9 +78,6 @@
   --gradient-hero: linear-gradient(135deg, #080410 0%, #080f1e 50%, #060c18 100%);
 }
 
-/* ─────────────────────────────────────────
-   BASE
-───────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
@@ -117,16 +102,10 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
-/* ─────────────────────────────────────────
-   SCROLLBAR
-───────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-secondary); }
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
 
-/* ─────────────────────────────────────────
-   ANIMATIONS
-───────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -156,9 +135,6 @@ h1, h2, h3, h4, h5, h6 {
 .page-fade { animation: fadeUp 0.45s ease-out both; }
 .fade-in   { animation: fadeIn 0.35s ease-out both; }
 
-/* ─────────────────────────────────────────
-   LAYOUT UTILITIES
-───────────────────────────────────────── */
 .section-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -171,21 +147,13 @@ h1, h2, h3, h4, h5, h6 {
   .section-container { padding: 0 2rem; }
 }
 
-/* ─────────────────────────────────────────
-   HERO BACKGROUND
-───────────────────────────────────────── */
-/* 
-  The sticky nav is h-16 = 64px.
-  All hero sections automatically get that clearance so content
-  never sits flush against the navbar.
-*/
 :root { --nav-h: 64px; }
 
 .hero-bg {
   background: var(--gradient-hero);
   position: relative;
   overflow: hidden;
-  padding-top: var(--nav-h);   /* ← clears sticky nav */
+  padding-top: var(--nav-h);
 }
 .blob {
   position: absolute;
@@ -200,9 +168,6 @@ h1, h2, h3, h4, h5, h6 {
 .blob-2 { width: 320px; height: 320px; background: linear-gradient(135deg,#CFEBFF,#7ec8e3); top: 40%; right: -80px; animation-delay: -3s; }
 .blob-3 { width: 260px; height: 260px; background: linear-gradient(135deg,#FFDDB0,#ffb347); bottom: -60px; left: 30%; animation-delay: -6s; }
 
-/* ─────────────────────────────────────────
-   GLASS CARD
-───────────────────────────────────────── */
 .glass-card {
   background: var(--glass-bg);
   border: 1px solid var(--border-color);
@@ -217,7 +182,6 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--shadow-lg), var(--shadow-glow);
 }
 
-/* Surface card (non-glass) */
 .surface-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -231,9 +195,6 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--bg-card-hover);
 }
 
-/* ─────────────────────────────────────────
-   GRADIENT TEXT
-───────────────────────────────────────── */
 .text-gradient {
   background: var(--gradient-accent);
   -webkit-background-clip: text;
@@ -247,9 +208,6 @@ h1, h2, h3, h4, h5, h6 {
   background-clip: text;
 }
 
-/* ─────────────────────────────────────────
-   PREMIUM BUTTONS
-───────────────────────────────────────── */
 .btn-premium {
   background: var(--gradient-accent);
   color: #1a0800;
@@ -280,9 +238,6 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-2px);
 }
 
-/* ─────────────────────────────────────────
-   NAVBAR
-───────────────────────────────────────── */
 .navbar-premium {
   background: var(--nav-bg);
   backdrop-filter: blur(20px);
@@ -291,9 +246,6 @@ h1, h2, h3, h4, h5, h6 {
   transition: background 0.3s ease, border-color 0.3s ease;
 }
 
-/* ─────────────────────────────────────────
-   STAT CARD
-───────────────────────────────────────── */
 .stat-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -317,9 +269,6 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-2px);
 }
 
-/* ─────────────────────────────────────────
-   SECTION LABEL / BADGE
-───────────────────────────────────────── */
 .section-badge {
   display: inline-flex;
   align-items: center;
@@ -340,9 +289,6 @@ h1, h2, h3, h4, h5, h6 {
   border-color: rgba(255,190,145,0.20);
 }
 
-/* ─────────────────────────────────────────
-   FORM INPUTS (premium overrides)
-───────────────────────────────────────── */
 .input-premium {
   background: rgba(255,255,255,0.05);
   border: 1.5px solid var(--border-color);
@@ -363,9 +309,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .input-premium::placeholder { color: var(--text-muted); }
 
-/* ─────────────────────────────────────────
-   PROGRESS BAR
-───────────────────────────────────────── */
 .progress-bar-track {
   background: var(--border-color);
   border-radius: 999px;
@@ -380,9 +323,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .progress-bar-fill.full { background: linear-gradient(90deg,#dc2626,#ef4444); }
 
-/* ─────────────────────────────────────────
-   COUNTDOWN TIMER
-───────────────────────────────────────── */
 .countdown-unit {
   display: flex;
   flex-direction: column;
@@ -411,17 +351,11 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 2px;
 }
 
-/* ─────────────────────────────────────────
-   RESPONSIVE HELPERS
-───────────────────────────────────────── */
 @media (max-width: 480px) {
   .countdown-unit { min-width: 48px; padding: 0.4rem 0.5rem; }
   .countdown-unit .num { font-size: 1.35rem; }
 }
 
-/* ─────────────────────────────────────────
-   THEME TOGGLE
-───────────────────────────────────────── */
 .theme-toggle {
   width: 44px; height: 24px;
   background: rgba(255,190,145,0.2);
@@ -449,18 +383,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 .theme-toggle.dark .theme-toggle-knob { transform: translateX(20px); }
 
-/* ─────────────────────────────────────────
-   MOBILE NAV OVERLAY
-───────────────────────────────────────── */
 .mobile-nav-menu {
   background: var(--bg-primary);
   border-top: 1px solid var(--border-color);
   animation: fadeIn 0.2s ease-out;
 }
 
-/* ─────────────────────────────────────────
-   TABLE
-───────────────────────────────────────── */
 .premium-table {
   width: 100%;
   border-collapse: collapse;
@@ -487,16 +415,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 .premium-table tbody tr:hover { background: var(--bg-secondary); }
 
-/* ─────────────────────────────────────────
-   STATUS BADGES
-───────────────────────────────────────── */
 .badge-paid   { background:rgba(74,222,128,0.12); color:#4ade80; border:1px solid rgba(74,222,128,0.3); border-radius:999px; padding:2px 10px; font-size:0.72rem; font-weight:700; }
 .badge-pending{ background:rgba(255,221,176,0.12); color:#FFDDB0; border:1px solid rgba(255,221,176,0.3); border-radius:999px; padding:2px 10px; font-size:0.72rem; font-weight:700; }
 .badge-rejected{background:rgba(248,113,113,0.12); color:#f87171; border:1px solid rgba(248,113,113,0.3); border-radius:999px; padding:2px 10px; font-size:0.72rem; font-weight:700;}
 
-/* ─────────────────────────────────────────
-   DIVIDER
-───────────────────────────────────────── */
 .divider-gradient {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255,190,145,0.3), rgba(207,235,255,0.2), transparent);
@@ -504,11 +426,9 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
 }
 
-/* ── Scrollbar warm tint ── */
 ::-webkit-scrollbar-thumb { background: #FFBE91; border-radius: 3px; }
 ::-webkit-scrollbar-track { background: #0f1624; }
 
-/* ── Nav link warm underline ── */
 .nav-link-warm {
   position: relative;
   display: inline-block;
@@ -529,9 +449,6 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
-/* ─────────────────────────────────────────
-   FOOTER — Professional Warm Palette
-───────────────────────────────────────── */
 .footer-root {
   position: relative;
   margin-top: auto;
@@ -555,7 +472,6 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 }
 
-/* Decorative radial glows */
 .footer-body::before,
 .footer-body::after {
   content: '';
@@ -576,7 +492,6 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 0px; right: -80px;
 }
 
-/* ── Grid ── */
 .footer-grid {
   display: grid;
   grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
@@ -590,7 +505,6 @@ h1, h2, h3, h4, h5, h6 {
   .footer-grid { grid-template-columns: 1fr; }
 }
 
-/* ── Brand column ── */
 .footer-brand-col {
   display: flex;
   flex-direction: column;
@@ -638,7 +552,6 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
-/* ── Newsletter ── */
 .footer-newsletter {
   display: flex;
   flex-direction: column;
@@ -687,7 +600,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .footer-newsletter-btn:hover { filter: brightness(1.1); }
 
-/* ── Social icons ── */
 .footer-social-row {
   display: flex;
   gap: 0.5rem;
@@ -711,7 +623,6 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 6px 20px rgba(255,190,145,0.35);
 }
 
-/* ── Link columns ── */
 .footer-col-heading {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 0.78rem;
@@ -760,7 +671,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .footer-link:hover .footer-link-arrow { opacity: 1; }
 
-/* ── Contact items ── */
 .footer-contact-list {
   list-style: none;
   padding: 0; margin: 0 0 1rem;
@@ -809,7 +719,6 @@ h1, h2, h3, h4, h5, h6 {
   flex-shrink: 0;
 }
 
-/* ── Bottom bar ── */
 .footer-bottom-divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255,190,145,0.3), rgba(207,235,255,0.3), transparent);

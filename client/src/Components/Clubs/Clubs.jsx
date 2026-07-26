@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router';
 
-/* ── Club Data (placeholder — update logos/info later) ── */
 export const CLUBS = [
     {
         id: 'iiuc-competitive-programming-society',
@@ -11,7 +10,7 @@ export const CLUBS = [
         tagline: 'Code. Compete. Conquer.',
         description:
             'The official programming club of IIUC. We host competitive programming contests, hackathons, and workshops to sharpen your coding skills and prepare you for the global tech arena.',
-        logo: null, // replace with logo URL later
+        logo: null,
         color: '#FFBE91',
         bgGrad: 'linear-gradient(135deg, rgba(255,190,145,0.18), rgba(255,190,145,0.04))',
         members: 320,
@@ -161,7 +160,6 @@ const Clubs = () => {
     return (
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }}>
 
-            {/* ── Hero Banner ── */}
             <section style={{
                 background: 'var(--bg-secondary)',
                 padding: 'calc(var(--nav-h) + 3rem) 0 4rem',
@@ -169,7 +167,7 @@ const Clubs = () => {
                 overflow: 'hidden',
                 borderBottom: '1px solid var(--border-color)',
             }}>
-                {/* Blobs */}
+
                 <div className="blob blob-1" style={{ opacity: 0.12, width: 400, height: 400 }} />
                 <div className="blob blob-2" style={{ opacity: 0.10, width: 300, height: 300 }} />
 
@@ -199,7 +197,6 @@ const Clubs = () => {
                             Explore, join, and make memories that last a lifetime.
                         </p>
 
-                        {/* Stats row */}
                         <div style={{ display: 'flex', justifyContent: 'center', gap: '3rem', flexWrap: 'wrap' }}>
                             {[
                                 ['8+', 'Active Clubs'],
@@ -224,11 +221,10 @@ const Clubs = () => {
                 </div>
             </section>
 
-            {/* ── Filters ── */}
             <section style={{ background: 'var(--bg-secondary)', padding: '2rem 0', borderBottom: '1px solid var(--border-color)', position: 'sticky', top: 64, zIndex: 40, backdropFilter: 'blur(12px)' }}>
                 <div className="section-container">
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'center', justifyContent: 'space-between' }}>
-                        {/* Category pills */}
+
                         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                             {categories.map(cat => (
                                 <button
@@ -252,7 +248,6 @@ const Clubs = () => {
                             ))}
                         </div>
 
-                        {/* Search */}
                         <input
                             type="text"
                             placeholder="Search clubs or tags…"
@@ -274,7 +269,6 @@ const Clubs = () => {
                 </div>
             </section>
 
-            {/* ── Club Grid ── */}
             <section style={{ padding: '4rem 0' }}>
                 <div className="section-container">
                     {filtered.length === 0 ? (
@@ -299,7 +293,6 @@ const Clubs = () => {
     );
 };
 
-/* ── Club Card Component ── */
 const ClubCard = ({ club }) => {
     const [hovered, setHovered] = React.useState(false);
     const initials = club.shortName;
@@ -322,9 +315,9 @@ const ClubCard = ({ club }) => {
                 cursor: 'pointer',
             }}
         >
-            {/* Top row: logo + name */}
+
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                {/* Logo / Avatar */}
+
                 <div style={{
                     width: 56, height: 56,
                     borderRadius: '14px',
@@ -344,7 +337,7 @@ const ClubCard = ({ club }) => {
                 </div>
 
                 <div style={{ flex: 1, minWidth: 0 }}>
-                    {/* Category badge */}
+
                     <span style={{
                         display: 'inline-block',
                         padding: '2px 8px',
@@ -375,17 +368,14 @@ const ClubCard = ({ club }) => {
                 </div>
             </div>
 
-            {/* Tagline */}
             <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.78rem', fontWeight: 600, color: club.color, margin: 0 }}>
                 "{club.tagline}"
             </p>
 
-            {/* Description */}
             <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.65, margin: 0, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                 {club.description}
             </p>
 
-            {/* Tags */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem' }}>
                 {club.tags.slice(0, 3).map(tag => (
                     <span key={tag} style={{
@@ -401,7 +391,6 @@ const ClubCard = ({ club }) => {
                 ))}
             </div>
 
-            {/* Footer row */}
             <div style={{
                 display: 'flex',
                 alignItems: 'center',

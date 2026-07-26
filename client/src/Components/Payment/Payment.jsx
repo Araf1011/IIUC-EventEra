@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router';
 import API_URL from '../../config';
 
-
 const Payment = () => {
     const { registrationId } = useParams();
     const navigate = useNavigate();
@@ -11,18 +10,15 @@ const Payment = () => {
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState('');
-    
-    // Payment method state - default to bKash
+
     const [selectedMethod, setSelectedMethod] = useState('bKash');
 
     useEffect(() => {
-        // Fetch registration details
         const regPromise = fetch(`${API_URL}/registrations/${registrationId}`)
             .then(res => res.json())
             .then(data => setRegistration(data))
             .catch(err => console.error("Error fetching registration:", err));
 
-        // Fetch payment settings
         const settingsPromise = fetch(`${API_URL}/settings`)
             .then(res => res.json())
             .then(data => setSettings(data))
@@ -107,7 +103,7 @@ const Payment = () => {
         <div className="min-h-screen py-12 px-4 md:px-8 page-fade" style={{ background: 'var(--bg-primary)', paddingTop: '6rem' }}>
             <div className="max-w-xl mx-auto rounded-3xl p-6 md:p-8"
                 style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-lg)' }}>
-                
+
                 <div className="text-center mb-6">
                     <svg className="w-12 h-12 mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(var(--shadow-glow))' }}>
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -123,25 +119,24 @@ const Payment = () => {
                     </p>
                 </div>
 
-                {/* ── Selection Method with Logos ── */}
                 <div className="mb-6">
                     <label className="block text-xs font-bold uppercase tracking-wider mb-3 text-center" style={{ color: 'var(--text-secondary)' }}>
                         Choose Mobile Payment Option
                     </label>
                     <div className="grid grid-cols-2 gap-4">
-                        {/* bKash Card */}
-                        <div 
+
+                        <div
                             onClick={() => setSelectedMethod('bKash')}
                             className="rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer transition-all hover:scale-[1.02]"
-                            style={{ 
+                            style={{
                                 border: selectedMethod === 'bKash' ? '2.5px solid #e2136e' : '1px solid var(--border-color)',
                                 background: selectedMethod === 'bKash' ? 'rgba(226, 19, 110, 0.08)' : 'var(--bg-secondary)',
                                 boxShadow: selectedMethod === 'bKash' ? '0 0 16px rgba(226, 19, 110, 0.15)' : 'none'
                             }}
                         >
-                            <img 
-                                src="https://download.logo.wine/logo/BKash/BKash-Logo.wine.png" 
-                                alt="bKash Logo" 
+                            <img
+                                src="https://download.logo.wine/logo/BKash/BKash-Logo.wine.png"
+                                alt="bKash Logo"
                                 className="h-10 object-contain mb-1.5"
                                 onError={(e) => {
                                     e.target.onerror = null;
@@ -153,19 +148,18 @@ const Payment = () => {
                             </span>
                         </div>
 
-                        {/* Nagad Card */}
-                        <div 
+                        <div
                             onClick={() => setSelectedMethod('Nagad')}
                             className="rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer transition-all hover:scale-[1.02]"
-                            style={{ 
+                            style={{
                                 border: selectedMethod === 'Nagad' ? '2.5px solid #f95f07' : '1px solid var(--border-color)',
                                 background: selectedMethod === 'Nagad' ? 'rgba(249, 95, 7, 0.08)' : 'var(--bg-secondary)',
                                 boxShadow: selectedMethod === 'Nagad' ? '0 0 16px rgba(249, 95, 7, 0.15)' : 'none'
                             }}
                         >
-                            <img 
-                                src="https://download.logo.wine/logo/Nagad/Nagad-Logo.wine.png" 
-                                alt="Nagad Logo" 
+                            <img
+                                src="https://download.logo.wine/logo/Nagad/Nagad-Logo.wine.png"
+                                alt="Nagad Logo"
                                 className="h-10 object-contain mb-1.5"
                                 onError={(e) => {
                                     e.target.onerror = null;
@@ -179,7 +173,6 @@ const Payment = () => {
                     </div>
                 </div>
 
-                {/* Instructions Box */}
                 <div className="rounded-2xl p-5 mb-6 flex flex-col gap-4"
                     style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
                     <h3 className="font-bold text-xs uppercase tracking-wider" style={{ color: 'var(--text-primary)' }}>
@@ -188,12 +181,12 @@ const Payment = () => {
                     <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                         Please send money via <strong>Send Money</strong> option of <strong>{selectedMethod}</strong> to the personal number listed below. Once sent, provide the sender's payment account number and Transaction ID (TrxID) below.
                     </p>
-                    
+
                     <div className="flex flex-col gap-2.5 mt-1">
                         <div className="flex justify-between items-center p-3 rounded-xl text-xs border"
-                            style={{ 
-                                background: 'var(--bg-card)', 
-                                borderColor: selectedMethod === 'bKash' ? 'rgba(226, 19, 110, 0.3)' : 'rgba(249, 95, 7, 0.3)' 
+                            style={{
+                                background: 'var(--bg-card)',
+                                borderColor: selectedMethod === 'bKash' ? 'rgba(226, 19, 110, 0.3)' : 'rgba(249, 95, 7, 0.3)'
                             }}>
                             <span className="font-semibold flex items-center gap-1.5" style={{ color: 'var(--text-secondary)' }}>
                                 📱 {selectedMethod} Personal:
@@ -222,16 +215,15 @@ const Payment = () => {
                     </div>
                 )}
 
-                {/* Payment Form */}
                 <form onSubmit={handlePaymentSubmit} className="flex flex-col gap-4">
                     <div>
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>
                             Payment Account Number (Sender Number)
                         </label>
-                        <input 
-                            type="text" 
-                            name="senderNumber" 
-                            placeholder="e.g. 017XXXXXXXX" 
+                        <input
+                            type="text"
+                            name="senderNumber"
+                            placeholder="e.g. 017XXXXXXXX"
                             className="input-premium"
                             required
                         />
@@ -241,17 +233,17 @@ const Payment = () => {
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>
                             Transaction ID (TrxID)
                         </label>
-                        <input 
-                            type="text" 
-                            name="transactionId" 
-                            placeholder="e.g. A9B8C7D6E5" 
+                        <input
+                            type="text"
+                            name="transactionId"
+                            placeholder="e.g. A9B8C7D6E5"
                             className="input-premium font-mono"
                             required
                         />
                     </div>
 
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         className="btn-premium w-full py-3 rounded-xl font-semibold text-sm mt-2 flex items-center justify-center gap-2 cursor-pointer"
                         disabled={submitting}
                     >

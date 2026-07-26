@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import API_URL from '../../config';
 
-
 const PaymentSettings = () => {
     const [bkash, setBkash] = useState('');
     const [nagad, setNagad] = useState('');
@@ -66,7 +65,6 @@ const PaymentSettings = () => {
     return (
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }} className="page-fade">
 
-            {/* Header strip */}
             <div className="relative overflow-hidden" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
                 <div className="blob blob-1" style={{ opacity: 0.18, width: 400, height: 400 }} />
                 <div className="blob blob-2" style={{ opacity: 0.12, width: 300, height: 300 }} />
@@ -95,7 +93,6 @@ const PaymentSettings = () => {
                 <div className="max-w-xl mx-auto rounded-3xl p-6 md:p-8"
                     style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-lg)' }}>
 
-                    {/* Current numbers display */}
                     {(bkash || nagad) && (
                         <div className="mb-6 p-4 rounded-2xl grid grid-cols-2 gap-4"
                             style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>

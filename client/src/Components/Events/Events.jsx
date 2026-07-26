@@ -3,7 +3,6 @@ import { useLoaderData } from 'react-router';
 import EventCard from './EventCard';
 import API_URL from '../../config';
 
-
 const categories = ['All', 'Seminar', 'Workshop', 'Cultural', 'Sports', 'Competition', 'Other'];
 
 const Events = () => {
@@ -41,7 +40,6 @@ const Events = () => {
     return (
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }}>
 
-            {/* Header Banner */}
             <div className="relative overflow-hidden" style={{
                 background: 'var(--bg-secondary)',
                 padding: 'calc(var(--nav-h) + 3rem) 0 3.5rem',
@@ -68,11 +66,9 @@ const Events = () => {
 
             <div className="section-container pb-24" style={{ paddingTop: '4rem' }}>
 
-                {/* Filter Bar */}
                 <div className="rounded-2xl p-4 md:p-5 mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
                     style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)' }}>
 
-                    {/* Search */}
                     <div className="relative w-full md:max-w-xs">
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-base" style={{ color: 'var(--text-muted)' }}>🔍</span>
                         <input
@@ -85,7 +81,6 @@ const Events = () => {
                         />
                     </div>
 
-                    {/* Category Tabs */}
                     <div className="flex flex-wrap gap-2">
                         {categories.map(cat => (
                             <button
@@ -103,14 +98,12 @@ const Events = () => {
                     </div>
                 </div>
 
-                {/* Results count */}
                 {!loading && filtered.length > 0 && (
                     <p className="text-xs mb-4" style={{ color: 'var(--text-muted)' }}>
                         Showing <strong style={{ color: 'var(--accent)' }}>{filtered.length}</strong> event{filtered.length !== 1 ? 's' : ''}
                     </p>
                 )}
 
-                {/* Grid */}
                 {loading ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[1, 2, 3, 4, 5, 6].map(i => (

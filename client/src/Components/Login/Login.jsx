@@ -5,7 +5,6 @@ import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../Providers/AuthProvider';
 import API_URL from '../../config';
 
-
 const departments = ['CSE', 'EEE', 'BBA', 'Pharmacy', 'English', 'Law'];
 
 const Login = () => {
@@ -15,7 +14,6 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const [showPass, setShowPass] = useState(false);
 
-    // Profile completion modal state
     const [showProfileModal, setShowProfileModal] = useState(false);
     const [pendingUser, setPendingUser] = useState(null);
     const [profileLoading, setProfileLoading] = useState(false);
@@ -23,31 +21,26 @@ const Login = () => {
     const googleProvider = new GoogleAuthProvider();
     const githubProvider = new GithubAuthProvider();
 
-    // Called after social login — checks database before showing modal
     const promptProfileCompletion = (firebaseUser) => {
         fetch(`${API_URL}/users/${encodeURIComponent(firebaseUser.email.toLowerCase())}`)
             .then(res => res.json())
             .then(dbUser => {
                 if (dbUser && dbUser.roll && dbUser.department) {
-                    // Already completed profile, just go to dashboard
                     setLoading(false);
                     navigate('/dashboard');
                 } else {
-                    // Profile incomplete or doesn't exist, show modal
                     setPendingUser(firebaseUser);
                     setLoading(false);
                     setShowProfileModal(true);
                 }
             })
             .catch(() => {
-                // If error, fallback to showing modal
                 setPendingUser(firebaseUser);
                 setLoading(false);
                 setShowProfileModal(true);
             });
     };
 
-    // Called when user submits the profile form
     const handleProfileSubmit = (e) => {
         e.preventDefault();
         setProfileLoading(true);
@@ -103,7 +96,6 @@ const Login = () => {
             <div className="blob blob-1" style={{ opacity: 0.25 }} />
             <div className="blob blob-2" style={{ opacity: 0.2 }} />
 
-            {/* ── Profile Completion Modal ── */}
             {showProfileModal && (
                 <div style={{
                     position: 'fixed', inset: 0, zIndex: 1000,
@@ -159,7 +151,6 @@ const Login = () => {
                 </div>
             )}
 
-            {/* ── Login Card ── */}
             <div className="w-full max-w-md relative z-10 page-fade">
                 <div className="glass-card p-8 md:p-10" style={{ borderRadius: '1.75rem' }}>
 
@@ -181,7 +172,6 @@ const Login = () => {
                         </div>
                     )}
 
-                    {/* Social Buttons */}
                     <div className="grid grid-cols-2 gap-3 mb-6">
                         <button onClick={handleGoogleLogin} disabled={loading}
                             className="flex items-center justify-center gap-2.5 py-3 rounded-xl font-semibold text-xs transition-all hover:scale-[1.02] cursor-pointer"

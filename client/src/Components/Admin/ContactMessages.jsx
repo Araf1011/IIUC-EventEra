@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import API_URL from '../../config';
 
-
 const ContactMessages = () => {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -56,8 +55,7 @@ const ContactMessages = () => {
 
     return (
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }} className="page-fade">
-            
-            {/* Header strip */}
+
             <div className="relative overflow-hidden" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
                 <div className="blob blob-1" style={{ opacity: 0.18, width: 400, height: 400 }} />
                 <div className="blob blob-2" style={{ opacity: 0.12, width: 300, height: 300 }} />
@@ -83,7 +81,7 @@ const ContactMessages = () => {
             </div>
 
             <div className="section-container py-10">
-                {/* Messages List Container */}
+
                 {messages.length === 0 ? (
                     <div className="text-center py-20 rounded-3xl"
                         style={{ border: '2px dashed var(--border-color)', background: 'var(--bg-card)' }}>
@@ -100,10 +98,9 @@ const ContactMessages = () => {
                         {messages.map((msg) => (
                             <div key={msg._id} className="rounded-2xl p-6 flex flex-col gap-4 shadow-sm relative group"
                                 style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
-                                
-                                {/* Delete button on top right */}
-                                <button 
-                                    onClick={() => handleDeleteMessage(msg._id)} 
+
+                                <button
+                                    onClick={() => handleDeleteMessage(msg._id)}
                                     className="absolute right-4 top-4 w-7 h-7 rounded-lg flex items-center justify-center text-sm transition-opacity opacity-70 hover:opacity-100 cursor-pointer"
                                     style={{ background: 'var(--bg-secondary)', color: 'var(--error-color)', border: '1px solid var(--border-color)' }}
                                     title="Delete Message"
@@ -118,7 +115,7 @@ const ContactMessages = () => {
                                         </h3>
                                         <span className="text-xs" style={{ color: 'var(--text-muted)' }}>({msg.email})</span>
                                     </div>
-                                    
+
                                     <div className="text-xs">
                                         <span style={{ color: 'var(--text-muted)' }}>Subject: </span>
                                         <span className="font-semibold" style={{ color: 'var(--text-primary)' }}>{msg.subject}</span>

@@ -4,7 +4,6 @@ import CountdownTimer from '../Home/CountdownTimer';
 import API_URL from '../../config';
 import { AuthContext } from '../../Providers/AuthProvider';
 
-
 const EventDetails = () => {
     const loadedEvent = useLoaderData();
     const { id } = useParams();
@@ -23,7 +22,6 @@ const EventDetails = () => {
         }
     }, [event, id]);
 
-    // Check if user is already registered for this event
     useEffect(() => {
         if (user?.email && id) {
             fetch(`${API_URL}/registrations/user/${encodeURIComponent(user.email)}`)
@@ -77,7 +75,6 @@ const EventDetails = () => {
     return (
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }} className="page-fade">
 
-            {/* Hero image */}
             <div className="relative w-full" style={{ height: '320px', maxHeight: '420px' }}>
                 <img
                     src={image || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200'}
@@ -96,7 +93,6 @@ const EventDetails = () => {
                     ← Back
                 </Link>
 
-                {/* Registered badge on hero */}
                 {isRegistered && (
                     <div className="absolute top-4 right-4 flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold"
                         style={{
@@ -114,9 +110,8 @@ const EventDetails = () => {
             <div className="section-container py-10">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-                    {/* Main content */}
                     <div className="lg:col-span-2 flex flex-col gap-6">
-                        {/* Tags */}
+
                         <div className="flex flex-wrap gap-2">
                             <span className="px-3 py-1 rounded-full text-sm font-bold text-white"
                                 style={{ background: 'var(--gradient-accent)' }}>
@@ -138,7 +133,6 @@ const EventDetails = () => {
                             {name}
                         </h1>
 
-                        {/* Countdown */}
                         {isUpcoming && (
                             <div className="rounded-2xl p-6 text-center"
                                 style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
@@ -152,7 +146,6 @@ const EventDetails = () => {
                             </div>
                         )}
 
-                        {/* Description */}
                         <div className="rounded-2xl p-6"
                             style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
                             <h3 className="font-bold text-lg mb-4"
@@ -166,7 +159,6 @@ const EventDetails = () => {
                         </div>
                     </div>
 
-                    {/* Side panel */}
                     <div className="lg:col-span-1">
                         <div className="rounded-2xl p-6 sticky top-24 flex flex-col gap-5"
                             style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
@@ -189,7 +181,6 @@ const EventDetails = () => {
                                 </div>
                             ))}
 
-                            {/* Seat info */}
                             <div className="pt-3" style={{ borderTop: '1px solid var(--border-color)' }}>
                                 <div className="flex items-center justify-between text-xs mb-2">
                                     <span style={{ color: 'var(--text-muted)' }}>👥 Seats Availability</span>
@@ -205,11 +196,10 @@ const EventDetails = () => {
                                 </p>
                             </div>
 
-                            {/* CTA */}
                             <div className="mt-2 flex flex-col gap-2">
                                 {isRegistered ? (
                                     <>
-                                        {/* Already registered state */}
+
                                         <div className="w-full py-3 rounded-xl font-bold text-sm text-center"
                                             style={{ background: 'linear-gradient(135deg,#059669,#10b981)', color: '#fff' }}>
                                             ✅ You're Registered!

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import API_URL from '../../config';
 
-
 const ManageRegistrations = () => {
     const [registrations, setRegistrations] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -82,7 +81,6 @@ const ManageRegistrations = () => {
     return (
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }} className="page-fade">
 
-            {/* Header strip */}
             <div className="relative overflow-hidden" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
                 <div className="blob blob-1" style={{ opacity: 0.18, width: 400, height: 400 }} />
                 <div className="blob blob-2" style={{ opacity: 0.12, width: 300, height: 300 }} />
@@ -109,7 +107,6 @@ const ManageRegistrations = () => {
 
             <div className="section-container" style={{ paddingTop: '2.5rem', paddingBottom: '3rem' }}>
 
-                {/* Summary Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                     {[
                         { label: 'Total', value: registrations.length, color: 'var(--accent)', bg: 'rgba(255,190,145,0.08)', icon: '📋' },
@@ -125,7 +122,6 @@ const ManageRegistrations = () => {
                     ))}
                 </div>
 
-                {/* Registrations Table */}
                 {registrations.length === 0 ? (
                     <div className="text-center py-24 rounded-3xl"
                         style={{ border: '2px dashed var(--border-color)', background: 'var(--bg-card)' }}>
@@ -224,7 +220,6 @@ const ManageRegistrations = () => {
                 )}
             </div>
 
-            {/* Detail Modal */}
             {selectedReg && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
                     style={{ background: 'rgba(0,0,0,0.65)', backdropFilter: 'blur(8px)' }}
@@ -233,7 +228,6 @@ const ManageRegistrations = () => {
                         style={{ background: 'var(--bg-card)', border: '1px solid var(--border-strong)', boxShadow: 'var(--shadow-lg)', maxHeight: '90vh' }}
                         onClick={e => e.stopPropagation()}>
 
-                        {/* Close */}
                         <button onClick={() => setSelectedReg(null)}
                             className="absolute right-4 top-4 w-8 h-8 rounded-lg flex items-center justify-center text-sm cursor-pointer"
                             style={{ background: 'var(--bg-secondary)', color: 'var(--text-secondary)', border: '1px solid var(--border-color)' }}>
@@ -246,7 +240,7 @@ const ManageRegistrations = () => {
                         </h3>
 
                         <div className="flex flex-col gap-3">
-                            {/* ── Student Info ── */}
+
                             <div className="p-4 rounded-2xl" style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
                                 <span className="text-[9px] uppercase tracking-wider font-bold block mb-3" style={{ color: 'var(--accent)' }}>
                                     👤 Student Info
@@ -311,7 +305,6 @@ const ManageRegistrations = () => {
                                 </div>
                             </div>
 
-                            {/* ── Event Info ── */}
                             <div className="p-4 rounded-2xl" style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
                                 <span className="text-[9px] uppercase tracking-wider font-bold block mb-2" style={{ color: 'var(--accent)' }}>
                                     📅 Event
@@ -324,7 +317,6 @@ const ManageRegistrations = () => {
                                 </p>
                             </div>
 
-                            {/* ── Payment Info ── */}
                             <div className="p-4 rounded-2xl" style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
                                 <span className="text-[9px] uppercase tracking-wider font-bold block mb-3" style={{ color: 'var(--accent)' }}>
                                     💳 Payment Info

@@ -1,8 +1,4 @@
-/* ──────────────────────────────────────────────────────────
-   EVENTERA CHATBOT — Small Floating Popup Window Design
-────────────────────────────────────────────────────────── */
 
-/* ── CSS Variables ── */
 :root {
   --cb-bg-glass: rgba(15, 23, 42, 0.94);
   --cb-bg-card: rgba(30, 41, 59, 0.7);
@@ -18,7 +14,6 @@
   --cb-shadow-glow: 0 16px 40px -10px rgba(0, 0, 0, 0.65), 0 0 30px rgba(255, 157, 92, 0.15);
 }
 
-/* ── Mobile Backdrop Overlay (Subtle) ── */
 .chatbot-mobile-backdrop {
   display: none;
 }
@@ -41,9 +36,6 @@
   to { opacity: 1; }
 }
 
-/* ──────────────────────────────────────────────────────────
-   1. FLOATING ACTION BUTTON (FAB) — Original 💬 Icon
-────────────────────────────────────────────────────────── */
 .chatbot-fab {
   position: fixed;
   bottom: 24px;
@@ -97,7 +89,6 @@
   }
 }
 
-/* Badge */
 .chatbot-badge {
   position: absolute;
   top: -2px;
@@ -122,9 +113,6 @@
   50% { transform: scale(1.2); }
 }
 
-/* ──────────────────────────────────────────────────────────
-   2. MAIN CHAT WINDOW (COMPACT SMALL FLOATING POPUP)
-────────────────────────────────────────────────────────── */
 .chatbot-window {
   position: fixed;
   bottom: 88px;
@@ -159,9 +147,6 @@
   }
 }
 
-/* ──────────────────────────────────────────────────────────
-   3. HEADER
-────────────────────────────────────────────────────────── */
 .chatbot-header {
   display: flex;
   align-items: center;
@@ -284,9 +269,6 @@
   border-color: rgba(248, 113, 113, 0.3);
 }
 
-/* ──────────────────────────────────────────────────────────
-   4. MESSAGES AREA
-────────────────────────────────────────────────────────── */
 .chatbot-messages {
   flex: 1;
   overflow-y: auto;
@@ -412,7 +394,6 @@
   text-align: right;
 }
 
-/* ── Typing Indicator ── */
 .chatbot-typing {
   display: flex;
   align-items: center;
@@ -457,9 +438,6 @@
   }
 }
 
-/* ──────────────────────────────────────────────────────────
-   5. QUICK ACTIONS CAROUSEL
-────────────────────────────────────────────────────────── */
 .chatbot-quick-actions {
   padding: 0.4rem 0;
   border-top: 1px solid rgba(255, 190, 145, 0.1);
@@ -504,9 +482,6 @@
   color: #ffffff;
 }
 
-/* ──────────────────────────────────────────────────────────
-   6. INPUT AREA
-────────────────────────────────────────────────────────── */
 .chatbot-input-area {
   display: flex;
   align-items: center;
@@ -566,9 +541,6 @@
   cursor: not-allowed;
 }
 
-/* ──────────────────────────────────────────────────────────
-   7. COMPACT FLOATING WINDOW FOR MOBILE (< 640px)
-────────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
   .chatbot-fab {
     bottom: 16px;
@@ -580,7 +552,6 @@
     margin: 0;
   }
 
-  /* Compact small popup window on mobile */
   .chatbot-window {
     position: fixed;
     bottom: 74px;
@@ -597,6 +568,6 @@
   }
 
   .chatbot-input {
-    font-size: 16px; /* Prevents mobile Safari auto-zoom */
+    font-size: 16px;
   }
 }

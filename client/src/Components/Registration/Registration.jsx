@@ -4,7 +4,6 @@ import { auth } from '../Firebase/firebase.init';
 import { Link, useNavigate } from 'react-router';
 import API_URL from '../../config';
 
-
 const departments = ['CSE', 'EEE', 'BBA', 'Pharmacy', 'English', 'Law'];
 
 const Registration = () => {
@@ -47,10 +46,10 @@ const Registration = () => {
         <div className="min-h-[90vh] flex items-center justify-center py-12 px-4 relative overflow-hidden hero-bg">
             <div className="blob blob-2" style={{ opacity: 0.25 }} />
             <div className="blob blob-3" style={{ opacity: 0.2 }} />
-            
+
             <div className="w-full max-w-lg relative z-10 page-fade">
                 <div className="glass-card p-8 md:p-10" style={{ borderRadius: '1.75rem' }}>
-                    
+
                     <div className="text-center mb-8">
                         <div className="w-12 h-12 rounded-2xl text-white text-xl font-bold mx-auto mb-3 flex items-center justify-center shadow-md"
                             style={{ background: 'var(--gradient-accent)' }}>U</div>

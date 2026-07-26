@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import API_URL from '../../config';
 
-
 const FacebookSVG = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
@@ -46,7 +45,6 @@ const Contact = () => {
     return (
         <section id="contact" style={{ background: 'var(--bg-primary)' }}>
 
-            {/* Header */}
             <div className="relative overflow-hidden" style={{
                 background: 'var(--bg-secondary)',
                 padding: 'calc(var(--nav-h) + 3rem) 1rem 4rem',
@@ -71,11 +69,9 @@ const Contact = () => {
                 </div>
             </div>
 
-            {/* Content — generous bottom padding so footer doesn't collide */}
             <div className="section-container pb-24" style={{ paddingTop: '4rem' }}>
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
 
-                    {/* Info Panel */}
                     <div className="lg:col-span-2 flex flex-col gap-6">
                         <div className="rounded-2xl p-6 flex flex-col gap-6"
                             style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-sm)' }}>
@@ -105,7 +101,6 @@ const Contact = () => {
                                 </div>
                             ))}
 
-                            {/* Social links with original SVG brand icons */}
                             <div>
                                 <div className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: 'var(--text-muted)' }}>
                                     🌐 Social
@@ -127,7 +122,6 @@ const Contact = () => {
                             </div>
                         </div>
 
-                        {/* Map */}
                         <div className="rounded-2xl overflow-hidden" style={{ border: '1px solid var(--border-color)', height: '200px' }}>
                             <iframe
                                 title="map"
@@ -140,7 +134,6 @@ const Contact = () => {
                         </div>
                     </div>
 
-                    {/* Form Panel */}
                     <div className="lg:col-span-3">
                         <div className="rounded-2xl p-6 md:p-8"
                             style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>

@@ -9,11 +9,9 @@ const { MongoClient, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection setup
 const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
 const dbName = process.env.DB_NAME || "unievent";
 const client = new MongoClient(uri);
@@ -31,7 +29,6 @@ async function seedDatabase() {
         await client.connect();
         console.log("Connected to MongoDB successfully!");
 
-        // Seed default payment settings if they don't exist
         const settingsCount = await settingsCollection.countDocuments();
         if (settingsCount === 0) {
             await settingsCollection.insertOne({
@@ -41,7 +38,6 @@ async function seedDatabase() {
             });
         }
 
-        // Seed some dummy events if the events collection is empty
         const eventsCount = await eventsCollection.countDocuments();
         if (eventsCount === 0) {
             const now = new Date();
@@ -89,7 +85,7 @@ async function seedDatabase() {
             ]);
             console.log("Seeded default database events.");
         } else {
-            // Self-correction for existing databases: update any broken cricket tournament image URLs
+
             await eventsCollection.updateMany(
                 { image: "https://images.unsplash.com/photo-1531415080290-bc9b8998063a?w=800" },
                 { $set: { image: "https://images.unsplash.com/photo-1593341606579-7f97d27b7ec3?w=800" } }
@@ -101,11 +97,6 @@ async function seedDatabase() {
 }
 seedDatabase();
 
-        // ──────────────────────────────────────────────
-        // USERS API
-        // ──────────────────────────────────────────────
-
-        // Create / Save user (synced with Firebase signup or Google/GitHub login)
         app.post('/users', async (req, res) => {
             const user = req.body;
             if (!user.email) {
@@ -116,7 +107,7 @@ seedDatabase();
             const existingUser = await usersCollection.findOne(query);
 
             if (existingUser) {
-                // If the user already exists, update their profile with details if they were previously missing
+
                 const updateFields = {};
                 if (user.name && !existingUser.name) updateFields.name = user.name;
                 if (user.phone && !existingUser.phone) updateFields.phone = user.phone;
@@ -132,20 +123,17 @@ seedDatabase();
                 return res.send({ message: 'User already exists', insertedId: null });
             }
 
-            // Set role to student by default. User roles can be manually promoted to admin in MongoDB/Firebase.
             user.role = user.role || 'student';
 
             const result = await usersCollection.insertOne(user);
             res.send(result);
         });
 
-        // Get all users (Admin only)
         app.get('/users', async (req, res) => {
             const result = await usersCollection.find().toArray();
             res.send(result);
         });
 
-        // Check if user is admin
         app.get('/users/admin/:email', async (req, res) => {
             const email = req.params.email.toLowerCase();
             const user = await usersCollection.findOne({ email });
@@ -155,7 +143,6 @@ seedDatabase();
             res.send({ admin: !!isAdmin });
         });
 
-        // Promote user to admin
         app.patch('/users/admin/:id', async (req, res) => {
             const id = req.params.id;
             const filter = { _id: new ObjectId(id) };
@@ -166,14 +153,12 @@ seedDatabase();
             res.send(result);
         });
 
-        // Get user profile by email
         app.get('/users/:email', async (req, res) => {
             const email = decodeURIComponent(req.params.email).toLowerCase();
             const user = await usersCollection.findOne({ email });
             res.send(user || {});
         });
 
-        // Update user profile by email
         app.put('/users/:email', async (req, res) => {
             const email = decodeURIComponent(req.params.email).toLowerCase();
             const { name, phone, roll, department } = req.body;
@@ -185,7 +170,6 @@ seedDatabase();
             res.send(result);
         });
 
-        // Delete user
         app.delete('/users/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
@@ -193,18 +177,11 @@ seedDatabase();
             res.send(result);
         });
 
-
-        // ──────────────────────────────────────────────
-        // EVENTS API
-        // ──────────────────────────────────────────────
-
-        // Get all events
         app.get('/events', async (req, res) => {
             const result = await eventsCollection.find().toArray();
             res.send(result);
         });
 
-        // Get single event details
         app.get('/events/:id', async (req, res) => {
             const id = req.params.id;
             if (!ObjectId.isValid(id)) {
@@ -218,7 +195,6 @@ seedDatabase();
             res.send(result);
         });
 
-        // Create new event (Admin)
         app.post('/events', async (req, res) => {
             const event = req.body;
             event.seatsBooked = parseInt(event.seatsBooked || 0);
@@ -227,7 +203,6 @@ seedDatabase();
             res.send(result);
         });
 
-        // Update event (Admin)
         app.put('/events/:id', async (req, res) => {
             const id = req.params.id;
             const filter = { _id: new ObjectId(id) };
@@ -249,7 +224,6 @@ seedDatabase();
             res.send(result);
         });
 
-        // Delete event (Admin)
         app.delete('/events/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
@@ -257,16 +231,9 @@ seedDatabase();
             res.send(result);
         });
 
-
-        // ──────────────────────────────────────────────
-        // REGISTRATIONS API
-        // ──────────────────────────────────────────────
-
-        // Get ALL registrations (Admin panel)
         app.get('/registrations', async (req, res) => {
             const registrations = await registrationsCollection.find().sort({ registrationDate: -1 }).toArray();
 
-            // Enrich each registration with its event name and linked payment details
             const enriched = [];
             for (const reg of registrations) {
                 let eventName = reg.eventName || reg.eventTitle || null;
@@ -277,7 +244,6 @@ seedDatabase();
                     } catch (e) { }
                 }
 
-                // Pull payment details from payments collection
                 let paymentDetails = {};
                 try {
                     const regIdStr = reg._id.toString();
@@ -300,14 +266,12 @@ seedDatabase();
             res.send(enriched);
         });
 
-        // Get user's registered events
         app.get('/registrations/user/:email', async (req, res) => {
             const email = decodeURIComponent(req.params.email).toLowerCase();
             const registrations = await registrationsCollection.find({
                 $or: [{ email }, { userEmail: email }]
             }).toArray();
 
-            // Fetch event details for each registration
             const enriched = [];
             for (const reg of registrations) {
                 let eventInfo = {};
@@ -322,7 +286,6 @@ seedDatabase();
             res.send(enriched);
         });
 
-        // Get all registrations for an event (Admin)
         app.get('/registrations/event/:eventId', async (req, res) => {
             const eventId = req.params.eventId;
             const query = { eventId };
@@ -330,7 +293,6 @@ seedDatabase();
             res.send(result);
         });
 
-        // Get single registration by ID
         app.get('/registrations/:id', async (req, res) => {
             const id = req.params.id;
             if (!ObjectId.isValid(id)) {
@@ -340,7 +302,6 @@ seedDatabase();
             res.send(registration);
         });
 
-        // Register for event
         app.post('/registrations', async (req, res) => {
             const reg = req.body;
             let email = reg.email || reg.userEmail;
@@ -353,14 +314,12 @@ seedDatabase();
             reg.email = email;
             reg.userEmail = email;
 
-            // Check if already registered
             const query = { eventId: reg.eventId, email: email };
             const existing = await registrationsCollection.findOne(query);
             if (existing) {
                 return res.status(400).send({ message: "You have already registered for this event." });
             }
 
-            // Increment seats booked
             const eventId = reg.eventId;
             if (ObjectId.isValid(eventId)) {
                 const event = await eventsCollection.findOne({ _id: new ObjectId(eventId) });
@@ -376,14 +335,13 @@ seedDatabase();
             }
 
             reg.registrationDate = new Date();
-            // Default status: if event is free, Paid (no payment needed). If paid, Pending.
+
             reg.paymentStatus = parseFloat(reg.price || 0) === 0 ? "Paid" : "Pending";
 
             const result = await registrationsCollection.insertOne(reg);
             res.send(result);
         });
 
-        // Verify registration QR code (Admin Scanner)
         app.post('/registrations/verify', async (req, res) => {
             const { registrationId } = req.body;
 
@@ -396,7 +354,6 @@ seedDatabase();
                 return res.status(404).send({ success: false, message: "Ticket not found / Invalid pass" });
             }
 
-            // Enrich with event info
             let event = null;
             if (ObjectId.isValid(reg.eventId)) {
                 event = await eventsCollection.findOne({ _id: new ObjectId(reg.eventId) });
@@ -410,7 +367,6 @@ seedDatabase();
             });
         });
 
-        // Update payment status (Approve / Reject)
         app.patch('/registrations/payment/:id', async (req, res) => {
             const id = req.params.id;
             const { status } = req.body;
@@ -427,18 +383,11 @@ seedDatabase();
             res.send(result);
         });
 
-
-        // ──────────────────────────────────────────────
-        // PAYMENTS API
-        // ──────────────────────────────────────────────
-
-        // Submit transaction info
         app.post('/payments', async (req, res) => {
             const payment = req.body;
             payment.submittedAt = new Date();
             const result = await paymentsCollection.insertOne(payment);
 
-            // Update registration status to Pending (awaiting verification)
             if (ObjectId.isValid(payment.registrationId)) {
                 await registrationsCollection.updateOne(
                     { _id: new ObjectId(payment.registrationId) },
@@ -449,24 +398,16 @@ seedDatabase();
             res.send(result);
         });
 
-        // Get all payment submissions (Admin)
         app.get('/payments', async (req, res) => {
             const result = await paymentsCollection.find().toArray();
             res.send(result);
         });
 
-
-        // ──────────────────────────────────────────────
-        // SETTINGS API
-        // ──────────────────────────────────────────────
-
-        // Get current admin gateway numbers
         app.get('/settings', async (req, res) => {
             const settings = await settingsCollection.findOne();
             res.send(settings);
         });
 
-        // Update admin gateway numbers (Admin)
         app.put('/settings', async (req, res) => {
             const { bkashNumber, nagadNumber } = req.body;
             const settings = await settingsCollection.findOne();
@@ -487,12 +428,6 @@ seedDatabase();
             res.send(result);
         });
 
-
-        // ──────────────────────────────────────────────
-        // CONTACT MESSAGES API
-        // ──────────────────────────────────────────────
-
-        // Submit message
         app.post('/contacts', async (req, res) => {
             const msg = req.body;
             msg.submittedAt = new Date();
@@ -500,13 +435,11 @@ seedDatabase();
             res.send(result);
         });
 
-        // Get all messages (Admin)
         app.get('/contacts', async (req, res) => {
             const result = await contactsCollection.find().toArray();
             res.send(result);
         });
 
-        // Delete message
         app.delete('/contacts/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
@@ -514,18 +447,11 @@ seedDatabase();
             res.send(result);
         });
 
-
-        // ──────────────────────────────────────────────
-        // ANALYTICS & STATS API
-        // ──────────────────────────────────────────────
-
-        // Dashboard overview stats
         app.get('/stats', async (req, res) => {
             const totalEvents = await eventsCollection.countDocuments();
             const totalRegistrations = await registrationsCollection.countDocuments();
             const totalUsers = await usersCollection.countDocuments();
 
-            // Count pending verifications
             const pendingPayments = await registrationsCollection.countDocuments({
                 paymentStatus: "Pending Verification"
             });
@@ -538,12 +464,10 @@ seedDatabase();
             });
         });
 
-// Root route
 app.get('/', (req, res) => {
     res.send({ message: "UniEvent API is running!" });
 });
 
-// Start Server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

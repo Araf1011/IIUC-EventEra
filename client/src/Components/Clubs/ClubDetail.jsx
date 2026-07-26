@@ -14,7 +14,6 @@ const ClubDetail = () => {
 
     useEffect(() => {
         if (!club) { setLoading(false); return; }
-        // Fetch all events and filter by exact clubId match
         fetch(`${API_URL}/events`)
             .then(r => r.json())
             .then(data => {
@@ -47,14 +46,13 @@ const ClubDetail = () => {
     return (
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }}>
 
-            {/* ── Hero ── */}
             <section style={{
                 background: 'linear-gradient(135deg, #1a0d2e 0%, #0f1a38 60%, #0a1628 100%)',
                 padding: 'calc(var(--nav-h) + 4rem) 0 4rem',
                 position: 'relative',
                 overflow: 'hidden',
             }}>
-                {/* Colour glow behind */}
+
                 <div style={{
                     position: 'absolute', top: -120, left: -120,
                     width: 500, height: 500, borderRadius: '50%',
@@ -73,7 +71,7 @@ const ClubDetail = () => {
                 }} />
 
                 <div className="section-container" style={{ position: 'relative', zIndex: 1 }}>
-                    {/* Breadcrumb */}
+
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2rem', fontSize: '0.8rem' }}>
                         <Link to="/" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Home</Link>
                         <span style={{ color: 'var(--text-muted)' }}>›</span>
@@ -83,7 +81,7 @@ const ClubDetail = () => {
                     </div>
 
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', alignItems: 'center' }}>
-                        {/* Logo */}
+
                         <div style={{
                             width: 100, height: 100,
                             borderRadius: '22px',
@@ -109,7 +107,6 @@ const ClubDetail = () => {
                             )}
                         </div>
 
-                        {/* Info */}
                         <div style={{ flex: 1 }}>
                             <span style={{
                                 display: 'inline-block',
@@ -148,7 +145,6 @@ const ClubDetail = () => {
                                 "{club.tagline}"
                             </p>
 
-                            {/* Stats chips */}
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem' }}>
                                 {[
                                     [`👥 ${club.members.toLocaleString()} Members`, club.color],
@@ -174,11 +170,10 @@ const ClubDetail = () => {
                 </div>
             </section>
 
-            {/* ── About + Tags ── */}
             <section style={{ padding: '3rem 0', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
                 <div className="section-container">
                     <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 2fr) minmax(0, 1fr)', gap: '2.5rem' }}>
-                        {/* About */}
+
                         <div>
                             <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', color: '#FFBE91', fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>
                                 About the Club
@@ -188,7 +183,6 @@ const ClubDetail = () => {
                             </p>
                         </div>
 
-                        {/* Tags + Social */}
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                             <div>
                                 <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', color: '#FFBE91', fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.75rem' }}>
@@ -243,7 +237,6 @@ const ClubDetail = () => {
                 </div>
             </section>
 
-            {/* ── Events ── */}
             <section style={{ padding: '4rem 0' }}>
                 <div className="section-container">
                     <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
@@ -294,7 +287,6 @@ const ClubDetail = () => {
                 </div>
             </section>
 
-            {/* ── Back Button ── */}
             <div className="section-container" style={{ paddingBottom: '4rem' }}>
                 <Link to="/clubs"
                     style={{

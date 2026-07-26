@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import API_URL from '../../config';
 
-
 const QRScanner = () => {
     const [scanResult, setScanResult] = useState('');
     const [verificationData, setVerificationData] = useState(null);
@@ -51,7 +50,7 @@ const QRScanner = () => {
 
     return (
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }} className="page-fade">
-            {/* Header */}
+
             <div className="relative overflow-hidden" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
                 <div className="blob blob-1" style={{ opacity: 0.18, width: 400, height: 400 }} />
                 <div className="blob blob-2" style={{ opacity: 0.12, width: 300, height: 300 }} />
@@ -76,7 +75,7 @@ const QRScanner = () => {
 
                         {!scanResult ? (
                             <div className="flex flex-col items-center gap-4">
-                                {/* Scanner frame with glow border */}
+
                                 <div className="w-full overflow-hidden rounded-2xl"
                                     style={{
                                         border: '2px solid var(--accent)',

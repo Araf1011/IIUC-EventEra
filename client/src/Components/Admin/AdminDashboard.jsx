@@ -102,14 +102,13 @@ const AdminDashboard = () => {
     return (
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }} className="page-fade">
 
-            {/* ── Hero Header ── */}
             <div style={{
                 background: 'var(--bg-secondary)',
                 borderBottom: '1px solid var(--border-color)',
                 position: 'relative',
                 overflow: 'hidden',
             }}>
-                {/* Decorative glow blobs */}
+
                 <div style={{
                     position: 'absolute', top: -80, right: -80,
                     width: 360, height: 360, borderRadius: '50%',
@@ -188,7 +187,6 @@ const AdminDashboard = () => {
 
             <div className="section-container" style={{ paddingTop: '2.5rem', paddingBottom: '4rem', display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
 
-                {/* ── Stat Cards ── */}
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
@@ -203,7 +201,7 @@ const AdminDashboard = () => {
                             position: 'relative',
                             overflow: 'hidden',
                         }}>
-                            {/* Glow circle */}
+
                             <div style={{
                                 position: 'absolute', top: -30, right: -30,
                                 width: 100, height: 100, borderRadius: '50%',
@@ -237,7 +235,6 @@ const AdminDashboard = () => {
                     ))}
                 </div>
 
-                {/* ── Primary Actions ── */}
                 <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
                         <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.1rem', color: 'var(--text-primary)', margin: 0 }}>
@@ -281,7 +278,6 @@ const AdminDashboard = () => {
                     </div>
                 </div>
 
-                {/* ── Secondary Actions ── */}
                 <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
                         <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.1rem', color: 'var(--text-primary)', margin: 0 }}>
@@ -317,7 +313,6 @@ const AdminDashboard = () => {
                     </div>
                 </div>
 
-                {/* ── Quick Nav Footer ── */}
                 <div style={{
                     background: 'linear-gradient(135deg, rgba(255,190,145,0.06), rgba(207,235,255,0.06))',
                     border: '1px solid var(--border-color)',

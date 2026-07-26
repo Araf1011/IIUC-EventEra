@@ -2,9 +2,6 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
 import './Chatbot.css';
 
-/* ──────────────────────────────────────────
-   Knowledge Base — curated FAQ answers
-────────────────────────────────────────── */
 const knowledgeBase = [
     {
         keywords: ['hello', 'hi', 'hey', 'good morning', 'good evening', 'assalamualaikum', 'salam', 'greetings'],
@@ -94,7 +91,6 @@ function getTime() {
 function findAnswer(input) {
     const lower = input.toLowerCase().trim();
 
-    // Check knowledge base
     let bestMatch = null;
     let bestScore = 0;
 
@@ -118,9 +114,6 @@ function findAnswer(input) {
     return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
 }
 
-/* ──────────────────────────────────────────
-   Chatbot Component
-────────────────────────────────────────── */
 const Chatbot = () => {
     const { user } = useContext(AuthContext);
     const [isOpen, setIsOpen] = useState(false);
@@ -137,14 +130,12 @@ const Chatbot = () => {
     const messagesEndRef = useRef(null);
     const inputRef = useRef(null);
 
-    // Scroll to bottom on new messages
     useEffect(() => {
         if (isOpen) {
             messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
         }
     }, [messages, isTyping, isOpen]);
 
-    // Lock body scroll on mobile when chat is open
     useEffect(() => {
         if (isOpen && window.innerWidth <= 640) {
             document.body.style.overflow = 'hidden';
@@ -156,7 +147,6 @@ const Chatbot = () => {
         };
     }, [isOpen]);
 
-    // Focus input when chat opens
     useEffect(() => {
         if (isOpen) {
             const timer = setTimeout(() => inputRef.current?.focus(), 300);
@@ -205,7 +195,6 @@ const Chatbot = () => {
         ]);
     };
 
-    // Render markdown-like formatting (bold text & line breaks)
     const renderFormattedText = (text) => {
         if (!text) return null;
         const lines = text.split('\n');
@@ -233,19 +222,18 @@ const Chatbot = () => {
 
     return (
         <>
-            {/* Backdrop overlay for mobile */}
+
             {isOpen && (
-                <div 
-                    className="chatbot-mobile-backdrop" 
+                <div
+                    className="chatbot-mobile-backdrop"
                     onClick={() => setIsOpen(false)}
                     aria-hidden="true"
                 />
             )}
 
-            {/* Chat Window */}
             {isOpen && (
                 <div className="chatbot-window">
-                    {/* Header */}
+
                     <div className="chatbot-header">
                         <div className="chatbot-header-info">
                             <div className="chatbot-avatar-container">
@@ -286,7 +274,6 @@ const Chatbot = () => {
                         </div>
                     </div>
 
-                    {/* Messages Area */}
                     <div className="chatbot-messages">
                         {messages.map((msg, i) => (
                             <div key={i} className={`chatbot-msg ${msg.type}`}>
@@ -308,7 +295,6 @@ const Chatbot = () => {
                             </div>
                         ))}
 
-                        {/* Typing indicator */}
                         {isTyping && (
                             <div className="chatbot-typing">
                                 <div className="chatbot-msg-avatar chatbot-typing-avatar">
@@ -322,7 +308,6 @@ const Chatbot = () => {
                         <div ref={messagesEndRef} />
                     </div>
 
-                    {/* Quick Actions Scroll Bar */}
                     <div className="chatbot-quick-actions">
                         <div className="chatbot-quick-actions-scroll">
                             {quickActions.map(({ label, query }) => (
@@ -337,7 +322,6 @@ const Chatbot = () => {
                         </div>
                     </div>
 
-                    {/* Input Area */}
                     <div className="chatbot-input-area">
                         <input
                             ref={inputRef}
@@ -361,7 +345,6 @@ const Chatbot = () => {
                 </div>
             )}
 
-            {/* Floating Action Button (FAB) */}
             <button
                 className={`chatbot-fab ${isOpen ? 'open' : ''}`}
                 onClick={() => setIsOpen(!isOpen)}

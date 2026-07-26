@@ -35,7 +35,6 @@ const About = () => {
     return (
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }}>
 
-            {/* Hero Banner */}
             <div className="relative overflow-hidden" style={{
                 background: 'var(--bg-secondary)',
                 padding: 'calc(var(--nav-h) + 3rem) 1rem 4rem',
@@ -60,7 +59,6 @@ const About = () => {
                 </div>
             </div>
 
-            {/* Mission */}
             <section className="py-16 md:py-20" style={{ background: 'var(--bg-secondary)' }}>
                 <div className="section-container">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -71,7 +69,7 @@ const About = () => {
                                 className="w-full rounded-2xl object-cover shadow-xl"
                                 style={{ maxHeight: '380px', border: '1px solid var(--border-color)' }}
                             />
-                            {/* Floating badge */}
+
                             <div className="absolute -bottom-4 -right-4 rounded-2xl px-5 py-4 shadow-xl hidden md:block"
                                 style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
                                 <div className="text-2xl font-extrabold text-gradient">5,000+</div>
@@ -108,7 +106,6 @@ const About = () => {
                 </div>
             </section>
 
-            {/* Values */}
             <section className="py-16 md:py-20" style={{ background: 'var(--bg-primary)' }}>
                 <div className="section-container">
                     <div className="text-center mb-12">
@@ -140,7 +137,6 @@ const About = () => {
                 </div>
             </section>
 
-            {/* Team */}
             <section className="py-16 md:py-20" style={{ background: 'var(--bg-secondary)' }}>
                 <div className="section-container">
                     <div className="text-center mb-12">

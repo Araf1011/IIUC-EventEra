@@ -3,7 +3,6 @@ import { useLoaderData, useNavigate, Link } from 'react-router';
 import API_URL from '../../config';
 import { CLUBS } from '../Clubs/Clubs';
 
-
 const UpdateEvent = () => {
     const event = useLoaderData();
     const navigate = useNavigate();
@@ -81,8 +80,7 @@ const UpdateEvent = () => {
 
     return (
         <div style={{ background: 'var(--bg-primary)', minHeight: '100vh' }} className="page-fade">
-            
-            {/* Header strip */}
+
             <div className="relative overflow-hidden" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
                 <div className="blob blob-1" style={{ opacity: 0.18, width: 400, height: 400 }} />
                 <div className="blob blob-2" style={{ opacity: 0.12, width: 300, height: 300 }} />
@@ -120,13 +118,12 @@ const UpdateEvent = () => {
                     </div>
                 )}
 
-                {/* Form fields */}
                 <form onSubmit={handleUpdateEvent} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="md:col-span-2">
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Event Name</label>
-                        <input 
-                            type="text" 
-                            name="name" 
+                        <input
+                            type="text"
+                            name="name"
                             defaultValue={event.name}
                             className="input-premium"
                             required
@@ -159,9 +156,9 @@ const UpdateEvent = () => {
 
                     <div>
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Venue</label>
-                        <input 
-                            type="text" 
-                            name="venue" 
+                        <input
+                            type="text"
+                            name="venue"
                             defaultValue={event.venue}
                             className="input-premium"
                             required
@@ -170,9 +167,9 @@ const UpdateEvent = () => {
 
                     <div>
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Date</label>
-                        <input 
-                            type="date" 
-                            name="date" 
+                        <input
+                            type="date"
+                            name="date"
                             defaultValue={formattedDateString}
                             className="input-premium"
                             required
@@ -181,9 +178,9 @@ const UpdateEvent = () => {
 
                     <div>
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Time</label>
-                        <input 
-                            type="text" 
-                            name="time" 
+                        <input
+                            type="text"
+                            name="time"
                             defaultValue={event.time}
                             className="input-premium"
                             required
@@ -192,9 +189,9 @@ const UpdateEvent = () => {
 
                     <div>
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Ticket Price (৳)</label>
-                        <input 
-                            type="number" 
-                            name="price" 
+                        <input
+                            type="number"
+                            name="price"
                             defaultValue={event.price}
                             className="input-premium"
                             min="0"
@@ -204,9 +201,9 @@ const UpdateEvent = () => {
 
                     <div>
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Total Seats Available</label>
-                        <input 
-                            type="number" 
-                            name="seatsTotal" 
+                        <input
+                            type="number"
+                            name="seatsTotal"
                             defaultValue={event.seatsTotal}
                             className="input-premium"
                             min="1"
@@ -216,9 +213,9 @@ const UpdateEvent = () => {
 
                     <div className="md:col-span-2">
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Event Banner Image URL</label>
-                        <input 
-                            type="url" 
-                            name="image" 
+                        <input
+                            type="url"
+                            name="image"
                             defaultValue={event.image}
                             className="input-premium"
                             required
@@ -227,9 +224,9 @@ const UpdateEvent = () => {
 
                     <div className="md:col-span-2">
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Event Description</label>
-                        <textarea 
-                            name="description" 
-                            rows="5" 
+                        <textarea
+                            name="description"
+                            rows="5"
                             defaultValue={event.description}
                             className="input-premium resize-none"
                             style={{ paddingTop: '0.65rem' }}
@@ -237,8 +234,8 @@ const UpdateEvent = () => {
                         />
                     </div>
 
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         className="btn-premium w-full py-3 rounded-xl font-semibold text-sm md:col-span-2 mt-4 flex items-center justify-center gap-2 cursor-pointer"
                         disabled={submitting}
                     >

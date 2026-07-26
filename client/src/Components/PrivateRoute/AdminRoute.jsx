@@ -3,7 +3,6 @@ import { AuthContext } from '../../Providers/AuthProvider';
 import { Navigate } from 'react-router';
 import API_URL from '../../config';
 
-
 const AdminRoute = ({ children }) => {
 
     const { user, loading } = useContext(AuthContext)

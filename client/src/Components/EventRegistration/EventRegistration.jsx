@@ -3,7 +3,6 @@ import { useParams, useNavigate, Link } from 'react-router';
 import { AuthContext } from '../../Providers/AuthProvider';
 import API_URL from '../../config';
 
-
 const EventRegistration = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -17,13 +16,11 @@ const EventRegistration = () => {
     useEffect(() => {
         if (!user) return;
 
-        // Fetch event details
         const eventPromise = fetch(`${API_URL}/events/${id}`)
             .then(res => res.json())
             .then(data => setEvent(data))
             .catch(err => console.error("Error fetching event details:", err));
 
-        // Fetch user profile info (using encodeURIComponent for email)
         const profilePromise = fetch(`${API_URL}/users/${encodeURIComponent(user.email)}`)
             .then(res => res.json())
             .then(data => setProfile(data))
@@ -76,7 +73,6 @@ const EventRegistration = () => {
             .then(data => {
                 setRegistering(false);
                 if (data.insertedId) {
-                    // Check if event is free or paid
                     if (event.price > 0) {
                         navigate(`/payment/${data.insertedId}`);
                     } else {
@@ -119,7 +115,7 @@ const EventRegistration = () => {
         <div className="min-h-screen py-12 px-4 md:px-8 page-fade" style={{ background: 'var(--bg-primary)', paddingTop: '6rem' }}>
             <div className="max-w-xl mx-auto rounded-3xl p-6 md:p-8"
                 style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-lg)' }}>
-                
+
                 <div className="text-center mb-6">
                     <span className="text-4xl block mb-2">🎟️</span>
                     <h2 className="text-2xl md:text-3xl font-extrabold"
@@ -142,10 +138,10 @@ const EventRegistration = () => {
                 <form onSubmit={handleRegistrationSubmit} className="flex flex-col gap-4">
                     <div>
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Full Name</label>
-                        <input 
-                            type="text" 
-                            name="name" 
-                            placeholder="Full Name" 
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Full Name"
                             className="input-premium"
                             defaultValue={profile?.name || user?.displayName || ''}
                             required
@@ -154,10 +150,10 @@ const EventRegistration = () => {
 
                     <div>
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Email Address</label>
-                        <input 
-                            type="email" 
-                            name="email" 
-                            placeholder="Email" 
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
                             className="input-premium"
                             defaultValue={user?.email || ''}
                             readOnly
@@ -167,10 +163,10 @@ const EventRegistration = () => {
 
                     <div>
                         <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Phone Number</label>
-                        <input 
-                            type="text" 
-                            name="phone" 
-                            placeholder="e.g. 018XXXXXXXX" 
+                        <input
+                            type="text"
+                            name="phone"
+                            placeholder="e.g. 018XXXXXXXX"
                             className="input-premium"
                             defaultValue={profile?.phone || ''}
                             required
@@ -180,10 +176,10 @@ const EventRegistration = () => {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Roll/ID Number</label>
-                            <input 
-                                type="text" 
-                                name="roll" 
-                                placeholder="Roll/ID Number" 
+                            <input
+                                type="text"
+                                name="roll"
+                                placeholder="Roll/ID Number"
                                 className="input-premium"
                                 defaultValue={profile?.roll || ''}
                                 required
@@ -192,9 +188,9 @@ const EventRegistration = () => {
 
                         <div>
                             <label className="block text-xs font-semibold mb-1.5" style={{ color: 'var(--text-secondary)' }}>Department</label>
-                            <select 
-                                name="department" 
-                                className="input-premium bg-transparent" 
+                            <select
+                                name="department"
+                                className="input-premium bg-transparent"
                                 defaultValue={profile?.department || 'CSE'}
                                 required
                             >
@@ -208,7 +204,6 @@ const EventRegistration = () => {
                         </div>
                     </div>
 
-                    {/* Price and Action Section */}
                     <div className="p-4 rounded-2xl flex items-center justify-between border my-2"
                         style={{ background: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
                         <div className="flex flex-col">
@@ -225,12 +220,12 @@ const EventRegistration = () => {
                         )}
                     </div>
 
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         className="btn-premium w-full py-3 rounded-xl font-semibold text-sm mt-2 flex items-center justify-center gap-2 cursor-pointer"
                         disabled={registering}
                     >
-                        {registering 
+                        {registering
                             ? <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Registering...</>
                             : event.price > 0 ? 'Proceed to Payment 💳' : 'Confirm Registration 🎟️'
                         }

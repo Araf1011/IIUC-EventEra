@@ -33,7 +33,7 @@ const EventCarousel = ({ events }) => {
 
     return (
         <div className="relative w-full rounded-2xl overflow-hidden shadow-xl" style={{ height: '420px' }}>
-            {/* BG Image */}
+
             <div
                 className="absolute inset-0 bg-cover bg-center transition-all duration-700"
                 style={{
@@ -43,11 +43,10 @@ const EventCarousel = ({ events }) => {
                     transition: 'transform 0.7s ease, opacity 0.4s ease',
                 }}
             />
-            {/* Overlays */}
+
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.35) 55%, transparent 100%)' }} />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.4) 0%, transparent 60%)' }} />
 
-            {/* Content */}
             <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 z-10"
                 style={{ opacity: animating ? 0 : 1, transition: 'opacity 0.4s ease' }}>
                 <div className="max-w-2xl">
@@ -74,7 +73,6 @@ const EventCarousel = ({ events }) => {
                 </div>
             </div>
 
-            {/* Dots */}
             {events.length > 1 && (
                 <div className="absolute top-4 right-4 flex gap-1.5 z-20">
                     {events.map((_, i) => (

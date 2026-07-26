@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 import API_URL from '../../config';
 import TicketPDF from './TicketPDF';
 
-
 const departments = ['CSE', 'EEE', 'BBA', 'Pharmacy', 'English', 'Law'];
 
 const UserDashboard = () => {
@@ -14,7 +13,6 @@ const UserDashboard = () => {
     const [loading, setLoading] = useState(true);
     const [activeTicket, setActiveTicket] = useState(null);
 
-    // Edit profile state
     const [editOpen, setEditOpen] = useState(false);
     const [editLoading, setEditLoading] = useState(false);
     const [editSuccess, setEditSuccess] = useState(false);
@@ -56,8 +54,6 @@ const UserDashboard = () => {
             .finally(() => setEditLoading(false));
     };
 
-
-
     if (loading) {
         return (
             <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg-primary)' }}>
@@ -71,7 +67,6 @@ const UserDashboard = () => {
             <div className="section-container" style={{ paddingTop: '5rem', paddingBottom: '4rem' }}>
                 <div className="flex flex-col gap-8">
 
-                    {/* ── Profile Banner ── */}
                     <div className="rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6"
                         style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
                         <div className="flex items-center gap-4">
@@ -126,7 +121,6 @@ const UserDashboard = () => {
                         </div>
                     </div>
 
-                    {/* ── Edit Profile Panel ── */}
                     {editOpen && (
                         <div className="rounded-2xl p-6 md:p-8"
                             style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)' }}>
@@ -206,7 +200,6 @@ const UserDashboard = () => {
                         </div>
                     )}
 
-                    {/* ── Registrations ── */}
                     <div>
                         <h2 className="text-2xl font-extrabold mb-6"
                             style={{ color: 'var(--text-primary)', fontFamily: 'Space Grotesk, sans-serif' }}>
@@ -290,7 +283,6 @@ const UserDashboard = () => {
                 </div>
             </div>
 
-            {/* ── PDF Ticket Modal ── */}
             {activeTicket && (
                 <TicketPDF
                     registration={activeTicket}

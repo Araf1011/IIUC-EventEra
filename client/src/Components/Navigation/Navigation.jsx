@@ -3,7 +3,6 @@ import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../../Providers/AuthProvider';
 import API_URL from '../../config';
 
-
 const Navigation = () => {
     const { user, logout } = useContext(AuthContext);
     const [isAdmin, setIsAdmin] = useState(false);
@@ -12,7 +11,6 @@ const Navigation = () => {
     const [dropOpen, setDropOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
-    // Persist theme
     useEffect(() => {
         const saved = localStorage.getItem('uniev-theme') === 'dark';
         setIsDark(saved);
@@ -108,7 +106,6 @@ const Navigation = () => {
             <div className="section-container">
                 <div className="flex items-center justify-between h-16">
 
-                    {/* Logo */}
                     <Link to="/" className="flex items-center gap-2 flex-shrink-0" onClick={() => setMenuOpen(false)}>
                         <div style={{
                             width: 36, height: 36,
@@ -126,7 +123,6 @@ const Navigation = () => {
                         </div>
                     </Link>
 
-                    {/* Desktop Links */}
                     <div className="hidden md:flex items-center gap-6">
                         {navItems.map(({ to, label }) => (
                             <NavLink key={to} to={to}
@@ -168,9 +164,8 @@ const Navigation = () => {
                         )}
                     </div>
 
-                    {/* Right side: theme toggle + auth */}
                     <div className="flex items-center gap-3">
-                        {/* Theme Toggle */}
+
                         <button
                             onClick={toggleTheme}
                             className={`theme-toggle ${isDark ? 'dark' : ''}`}
@@ -182,7 +177,6 @@ const Navigation = () => {
                             </span>
                         </button>
 
-                        {/* Auth — Desktop */}
                         <div className="hidden md:flex items-center gap-2">
                             {user ? (
                                 <div className="relative">
@@ -252,7 +246,6 @@ const Navigation = () => {
                             )}
                         </div>
 
-                        {/* Mobile hamburger */}
                         <button
                             className="md:hidden w-9 h-9 flex items-center justify-center rounded-xl transition-colors"
                             style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}
@@ -270,7 +263,6 @@ const Navigation = () => {
                 </div>
             </div>
 
-            {/* Mobile menu */}
             {menuOpen && (
                 <div className="md:hidden mobile-nav-menu">
                     <div className="section-container py-3 flex flex-col gap-1">
