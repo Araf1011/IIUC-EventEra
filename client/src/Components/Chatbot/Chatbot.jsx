@@ -237,7 +237,7 @@ const Chatbot = () => {
                     <div className="chatbot-header">
                         <div className="chatbot-header-info">
                             <div className="chatbot-avatar-container">
-                                <div className="chatbot-avatar">🤖</div>
+                                <div className="chatbot-avatar">🕷️</div>
                                 <span className="chatbot-avatar-glow" />
                             </div>
                             <div className="chatbot-header-text">

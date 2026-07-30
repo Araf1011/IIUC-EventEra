@@ -1,4 +1,5 @@
 import React from 'react';
+import iiucImage from '../../assets/IIUC.webp';
 
 const teamMembers = [
     {
@@ -64,7 +65,7 @@ const About = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div className="relative">
                             <img
-                                src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800"
+                                src={iiucImage}
                                 alt="University Campus"
                                 className="w-full rounded-2xl object-cover shadow-xl"
                                 style={{ maxHeight: '380px', border: '1px solid var(--border-color)' }}
