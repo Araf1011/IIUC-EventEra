@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import eventeraLogo from '../../assets/EVENTERA LOGO.jpeg';
 import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, GithubAuthProvider } from 'firebase/auth';
 import { auth } from '../Firebase/firebase.init';
 import { Link, useNavigate } from 'react-router';
@@ -104,8 +105,10 @@ const Login = () => {
                 }}>
                     <div className="glass-card p-8" style={{ borderRadius: '1.75rem', width: '100%', maxWidth: '420px', animation: 'fadeIn 0.3s ease' }}>
                         <div className="text-center mb-6">
-                            <div className="w-12 h-12 rounded-2xl text-white text-xl font-bold mx-auto mb-3 flex items-center justify-center shadow-md"
-                                style={{ background: 'var(--gradient-accent)' }}>U</div>
+                            <div className="w-14 h-14 rounded-2xl mx-auto mb-3 flex items-center justify-center shadow-md overflow-hidden"
+                                style={{ background: 'var(--gradient-accent)' }}>
+                                <img src={eventeraLogo} alt="EventEra Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
                             <h2 className="text-xl font-extrabold" style={{ color: 'var(--text-primary)', fontFamily: 'Space Grotesk, sans-serif' }}>
                                 Complete Your Profile
                             </h2>
@@ -155,8 +158,10 @@ const Login = () => {
                 <div className="glass-card p-8 md:p-10" style={{ borderRadius: '1.75rem' }}>
 
                     <div className="text-center mb-8">
-                        <div className="w-12 h-12 rounded-2xl text-white text-xl font-bold mx-auto mb-3 flex items-center justify-center shadow-md"
-                            style={{ background: 'var(--gradient-accent)' }}>U</div>
+                        <div className="w-14 h-14 rounded-2xl mx-auto mb-3 flex items-center justify-center shadow-md overflow-hidden"
+                            style={{ background: 'var(--gradient-accent)' }}>
+                            <img src={eventeraLogo} alt="EventEra Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        </div>
                         <h1 className="text-2xl font-extrabold" style={{ color: 'var(--text-primary)', fontFamily: 'Space Grotesk, sans-serif' }}>
                             Sign In
                         </h1>
